@@ -5,6 +5,7 @@ package controller;
  */
 public class SampleLogicController {
 	int i = 2 ;
+	int j = 3;
 }
 
 
