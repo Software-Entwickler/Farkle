@@ -22,11 +22,11 @@ public class Round {
 		this.roundNum = roundNum;
 	}
 
-	public ArrayList<Player> getPlayer() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 
-	public void setPlayer(ArrayList<Player> players) {
+	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 	}
 

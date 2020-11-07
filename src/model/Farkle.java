@@ -7,6 +7,8 @@ public class Farkle {
 	private ArrayList<Player> players;
 
 	private ArrayList<Game> games;
+	
+	private Game currentGame;
 
 	private ArrayList<Highscore> highscores;
 
@@ -25,11 +27,11 @@ public class Farkle {
 		this.players = players;
 	}
 
-	public ArrayList<Game> getGame() {
+	public ArrayList<Game> getGames() {
 		return games;
 	}
 
-	public void setGame(ArrayList<Game> games) {
+	public void setGames(ArrayList<Game> games) {
 		this.games = games;
 	}
 
@@ -47,6 +49,14 @@ public class Farkle {
 
 	public void setEffectType(ArrayList<EffectType> effectTypes) {
 		this.effectTypes = effectTypes;
+	}
+
+	public void setCurrentGame(Game currentGame) {
+		this.currentGame = currentGame;
+	}
+	
+	public Game getCurrentGame() {
+		return currentGame;
 	}
 
 }

@@ -7,10 +7,13 @@ public class Game {
 	private int gameId;
 
 	private ArrayList<Round> rounds;
+	
+	private ArrayList<Player> players;
 
-	public Game(int gameId) {
+	public Game(int gameId, ArrayList<Player> players) {
 		this.gameId = gameId;
 		this.rounds = new ArrayList<>();
+		this.players = players;
 	}
 	
 	public int getGameId() {
@@ -21,12 +24,20 @@ public class Game {
 		this.gameId = gameId;
 	}
 
-	public ArrayList<Round> getRunde() {
+	public ArrayList<Round> getRounds() {
 		return rounds;
 	}
 
-	public void setRunde(ArrayList<Round> rundes) {
-		this.rounds = rundes;
+	public void setRounds(ArrayList<Round> rounds) {
+		this.rounds = rounds;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 }
