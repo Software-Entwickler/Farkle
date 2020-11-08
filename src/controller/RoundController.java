@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import model.Dice;
 import model.Player;
 import model.Round;
 
@@ -21,6 +22,8 @@ public class RoundController {
 		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
 		Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
 		farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
+		reSetPlayers();
+		
 	}
 	
 	public void addExtraRound()
@@ -30,6 +33,23 @@ public class RoundController {
 		allRounds.add(newRound);
 		farkleController.getFarkle().getCurrentGame().setRounds(allRounds);
 		farkleController.getFarkle().getCurrentGame().setCurrentRound(allRounds.get(allRounds.size() - 1));
+		reSetPlayers();
+	}
+	
+	private void reSetPlayers()
+	{
+		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
+		for(Player player : allPlayers)
+		{
+			player.setPlayed(false);
+			player.setRoundScore(0);
+			player.setTakenDices(0);
+			ArrayList<Dice> dices = player.getDice();
+			for(Dice dice : dices)
+			{
+				dice.setUsed(false);
+			}
+		}
 	}
 	
 	public void setNextPlayer()
@@ -55,15 +75,21 @@ public class RoundController {
 		}
 	}
 	
-	/*public boolean isEndOfTurn(Player player)
+	public boolean isEndOfTurn(Player player)
 	{
 		if(player.getTakenDices() == 6)
 		{
 			return false;
 		}
-		player.getDice().size()
-		return false;
-	}*/
+		else
+		{
+			if(player.getDice().size() != 0)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	public boolean isEndOfRound(Round round) {
 		ArrayList<Player> allPlayers = round.getPlayers();
