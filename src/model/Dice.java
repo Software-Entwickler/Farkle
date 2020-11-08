@@ -9,8 +9,7 @@ public class Dice {
 	public Dice(int value)
 	{
 		this.value = value;
-		setUsed(false);
-		
+		setUsed(false);	
 	}
 
 	public int getValue() {
