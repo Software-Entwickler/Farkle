@@ -2,7 +2,6 @@ package controller;
 
 import java.util.ArrayList;
 
-import model.Game;
 import model.Player;
 import model.Round;
 
@@ -33,8 +32,11 @@ public class RoundController {
 		farkleController.getFarkle().getCurrentGame().setCurrentRound(allRounds.get(allRounds.size() - 1));
 	}
 	
-	public Player setNextPlayer(Player currentPlayer, Round currentRound)
+	public void setNextPlayer()
 	{
+		Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+		currentPlayer.setPlayed(true);
+		currentPlayer.setScore(currentPlayer.getScore() + currentPlayer.getRoundScore());
 		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
 		for(int index = 0; index < allPlayers.size(); index++)
 		{
@@ -42,17 +44,26 @@ public class RoundController {
 			{
 				if(index == allPlayers.size() -1)
 				{
+					farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(0));
 					setNextRound();
-					return allPlayers.get(0);
 				}
 				else
 				{
-					return allPlayers.get( + 1);
+					farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(index+1));
 				}
 			}
 		}
-		throw new NullPointerException();
 	}
+	
+	/*public boolean isEndOfTurn(Player player)
+	{
+		if(player.getTakenDices() == 6)
+		{
+			return false;
+		}
+		player.getDice().size()
+		return false;
+	}*/
 	
 	public boolean isEndOfRound(Round round) {
 		ArrayList<Player> allPlayers = round.getPlayers();
