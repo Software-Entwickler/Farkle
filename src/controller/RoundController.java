@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+
+import model.Game;
 import model.Player;
 import model.Round;
 
@@ -13,16 +15,45 @@ public class RoundController {
 		this.farkleController = farkleController;
 	}
 	
-	public Round addExtraRound()
+	
+	
+	public void setNextRound()
+	{
+		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
+		Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
+		farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
+	}
+	
+	public void addExtraRound()
 	{
 		ArrayList<Round> allRounds = farkleController.getFarkle().getCurrentGame().getRounds();
-		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
-		Round newRound = new Round(allRounds.size() + 1, allPlayers);
+		Round newRound = new Round(allRounds.size() + 1);
 		allRounds.add(newRound);
 		farkleController.getFarkle().getCurrentGame().setRounds(allRounds);
-		return newRound;
+		farkleController.getFarkle().getCurrentGame().setCurrentRound(allRounds.get(allRounds.size() - 1));
 	}
-
+	
+	public Player setNextPlayer(Player currentPlayer, Round currentRound)
+	{
+		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
+		for(int index = 0; index < allPlayers.size(); index++)
+		{
+			if(allPlayers.get(index).equals(currentPlayer))
+			{
+				if(index == allPlayers.size() -1)
+				{
+					setNextRound();
+					return allPlayers.get(0);
+				}
+				else
+				{
+					return allPlayers.get( + 1);
+				}
+			}
+		}
+		throw new NullPointerException();
+	}
+	
 	public boolean isEndOfRound(Round round) {
 		ArrayList<Player> allPlayers = round.getPlayers();
 		for(Player player : allPlayers)
@@ -79,5 +110,4 @@ public class RoundController {
 		}
 		return false;
 	}
-
 }

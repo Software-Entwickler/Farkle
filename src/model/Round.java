@@ -14,6 +14,12 @@ public class Round {
 		this.players = players;
 	}
 	
+	public Round(int roundNum)
+	{
+		this.roundNum = roundNum;
+		this.players = new ArrayList<>();
+	}
+	
 	public int getRoundNum() {
 		return roundNum;
 	}

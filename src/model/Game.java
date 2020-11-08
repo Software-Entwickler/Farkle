@@ -9,11 +9,21 @@ public class Game {
 	private ArrayList<Round> rounds;
 	
 	private ArrayList<Player> players;
+	
+	private Player currentPlayer;
+	
+	private Round currentRound;
 
 	public Game(int gameId, ArrayList<Player> players) {
 		this.gameId = gameId;
 		this.rounds = new ArrayList<>();
 		this.players = players;
+	}
+	
+	public Game(int gameId) {
+		this.gameId = gameId;
+		this.rounds = new ArrayList<>();
+		this.players = new ArrayList<>();
 	}
 	
 	public int getGameId() {
@@ -32,12 +42,29 @@ public class Game {
 		this.rounds = rounds;
 	}
 
-	public void setPlayers(ArrayList<Player> players) {
-		this.players = players;
-	}
 	
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public Round getCurrentRound() {
+		return currentRound;
+	}
+
+	public void setCurrentRound(Round currentRound) {
+		this.currentRound = currentRound;
 	}
 
 }

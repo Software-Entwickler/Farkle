@@ -13,60 +13,53 @@ public class GameController {
 		this.farkleController = farkleController;
 	}
 	
-	public void addPlayerToGame(Player player, Game game)
-	{
-		ArrayList<Player> players = game.getPlayers();
-		if(players.size() <= 5)
-		{
-			players.add(player);
-		}
-	}
 	
-	public Game startTenRoundsGame(ArrayList<Player> players)
+	public void chooseTenRoundsGame()
 	{
-		Game newGame = new Game(1, players);	// TODO 1 should changed to something like ID
+		Game newGame = new Game(1);	// TODO 1 should changed to something like ID
 		ArrayList<Round> rounds = new ArrayList<>();
 		int roundNum = 1;
 		for(int i = 1; i <= 10;i++)
 		{
-			rounds.add(new Round(roundNum, players));
+			rounds.add(new Round(roundNum));
 			roundNum++;
 		}
 		newGame.setRounds(rounds);
 		farkleController.getFarkle().setCurrentGame(newGame);
-		return newGame;
 	}
 	
-	public Game startOneThousendGame(ArrayList<Player> players)
+	public void chooseOneThousendGame()
 	{
-		Game newGame = new Game(2, players);	// TODO 2 should changed to something like ID
+		Game newGame = new Game(2);	// TODO 2 should changed to something like ID
 		ArrayList<Round> rounds = new ArrayList<>();
-		rounds.add(new Round(1, players));
+		rounds.add(new Round(1));
 		newGame.setRounds(rounds);
 		farkleController.getFarkle().setCurrentGame(newGame);
-		return newGame;
 	}
 	
-	public Game startSoloGame(ArrayList<Player> players)
+	public void chooseSoloGame()
 	{
-		if(players.size() == 1)
-		{
-			Game newGame = new Game(3, players);	// TODO 3 should changed to something like ID
+			Game newGame = new Game(3);	// TODO 3 should changed to something like ID
 			ArrayList<Round> rounds = new ArrayList<>();
 			int roundNum = 1;
 			for(int i = 1; i <= 10;i++)
 			{
-				rounds.add(new Round(roundNum, players));
+				rounds.add(new Round(roundNum));
 				roundNum++;
 			}
 			newGame.setRounds(rounds);
 			farkleController.getFarkle().setCurrentGame(newGame);
-			return newGame;
-		}
-		else
-		{
-			return null;
-		}
-		
+	}
+	
+	public void addPlayersToGame(ArrayList<Player> players)
+	{
+		farkleController.getFarkle().getCurrentGame().setPlayers(players);
+	}
+	
+	public void startGame()
+	{
+		Game currentGame = farkleController.getFarkle().getCurrentGame();
+		currentGame.setCurrentRound(currentGame.getRounds().get(0));
+		currentGame.setCurrentPlayer(currentGame.getPlayers().get(0)); 
 	}
 }
