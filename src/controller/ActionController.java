@@ -13,7 +13,7 @@ public class ActionController {
 	}
 
 	public void choose(ArrayList<Dice> dices) {
-
+		farkleController.getCalculationController().calculate(dices) ;
 	}
 
 	public void chooseAll(ArrayList<Dice> dices) {
