@@ -13,12 +13,6 @@ public class Game {
 	private Player currentPlayer;
 	
 	private Round currentRound;
-
-	public Game(int gameId, ArrayList<Player> players) {
-		this.gameId = gameId;
-		this.rounds = new ArrayList<>();
-		this.players = players;
-	}
 	
 	public Game(int gameId) {
 		this.gameId = gameId;
