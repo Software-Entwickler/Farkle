@@ -8,11 +8,6 @@ public class Round {
 
 	private ArrayList<Player> players;
 
-	public Round(int roundNum , ArrayList<Player> players)
-	{
-		this.roundNum = roundNum;
-		this.players = players;
-	}
 	
 	public Round(int roundNum)
 	{

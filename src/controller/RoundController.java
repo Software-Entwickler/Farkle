@@ -130,8 +130,8 @@ public class RoundController {
 
 	public boolean isDraw(Round round)
 	{
-		if(isEndOfRound(round) &&
-			farkleController.getFarkle().getCurrentGame().getGameId() != 3)
+		if(isEndOfRound(round)) //&&
+			//farkleController.getFarkle().getCurrentGame().getGameId() != 3)
 		{
 			ArrayList<Player> allPlayers = round.getPlayers();
 			for(int i = 0; i < allPlayers.size();i++)

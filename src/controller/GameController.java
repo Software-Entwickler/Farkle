@@ -28,7 +28,7 @@ public class GameController {
 		farkleController.getFarkle().setCurrentGame(newGame);
 	}
 	
-	public void chooseOneThousendGame()
+	public void chooseTenThousendGame()
 	{
 		Game newGame = new Game(2);	// TODO 2 should changed to something like ID
 		ArrayList<Round> rounds = new ArrayList<>();
@@ -37,19 +37,19 @@ public class GameController {
 		farkleController.getFarkle().setCurrentGame(newGame);
 	}
 	
-	public void chooseSoloGame()
-	{
-			Game newGame = new Game(3);	// TODO 3 should changed to something like ID
-			ArrayList<Round> rounds = new ArrayList<>();
-			int roundNum = 1;
-			for(int i = 1; i <= 10;i++)
-			{
-				rounds.add(new Round(roundNum));
-				roundNum++;
-			}
-			newGame.setRounds(rounds);
-			farkleController.getFarkle().setCurrentGame(newGame);
-	}
+//	public void chooseSoloGame()
+//	{
+//			Game newGame = new Game(3);	// TODO 3 should changed to something like ID
+//			ArrayList<Round> rounds = new ArrayList<>();
+//			int roundNum = 1;
+//			for(int i = 1; i <= 10;i++)
+//			{
+//				rounds.add(new Round(roundNum));
+//				roundNum++;
+//			}
+//			newGame.setRounds(rounds);
+//			farkleController.getFarkle().setCurrentGame(newGame);
+//	}
 	
 	public void addPlayersToGame(ArrayList<Player> players)
 	{
