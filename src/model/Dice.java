@@ -5,11 +5,18 @@ public class Dice {
 	private int value;
 	
 	private boolean used;
+
+	private boolean usedBefore ;
 	
 	public Dice(int value)
 	{
 		this.value = value;
-		setUsed(false);	
+		setUsed(false);
+		setUsedBefore(false);
+	}
+
+	public Dice(){
+
 	}
 
 	public int getValue() {
@@ -26,5 +33,13 @@ public class Dice {
 
 	public void setUsed(boolean used) {
 		this.used = used;
+	}
+
+	public boolean isUsedBefore() {
+		return usedBefore;
+	}
+
+	public void setUsedBefore(boolean usedBefore) {
+		this.usedBefore = usedBefore;
 	}
 }
