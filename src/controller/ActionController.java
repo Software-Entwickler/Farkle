@@ -70,7 +70,7 @@ public class ActionController {
 	private void resetPlayer (Player player){
 		player.setRoundScore(0);
 		player.setTakenDices(0);
-		ArrayList<Dice> dices =new ArrayList<Dice>() ;
+		ArrayList<Dice> dices =player.getDice() ;
 		for(Dice dice : dices)
 		{
 			dice.setUsed(false);
