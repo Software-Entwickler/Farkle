@@ -67,7 +67,7 @@ public class ActionController {
 		}
 	}
 
-	private void resetPlayer (Player player){
+	public void resetPlayer (Player player){
 		player.setRoundScore(0);
 		player.setTakenDices(0);
 		ArrayList<Dice> dices =player.getDice() ;

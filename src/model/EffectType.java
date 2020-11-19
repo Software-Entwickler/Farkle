@@ -6,11 +6,11 @@ public enum EffectType {
 
  NO_FARKLE(false),
 
- START_BREAK(false),
+ START_BANK(false),
 
  BREAK_RULE(false),
 
- MORE_THROW(false),
+ MORE_THROWS(false),
 
  SWITCH_SCORES(false),
 
