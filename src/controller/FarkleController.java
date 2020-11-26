@@ -1,6 +1,7 @@
 package controller;
 
 import model.Farkle;
+import model.Timer;
 
 public class FarkleController {
 

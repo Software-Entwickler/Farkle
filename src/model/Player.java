@@ -23,6 +23,8 @@ public class Player {
 	private ArrayList<Dice> dices;
 
 	private ArrayList<EffectType> effectTypes;
+
+	private Timer playerTimer;
 	
 	public Player(String userName)
 	{
@@ -36,6 +38,7 @@ public class Player {
 		this.highscore = null;
 		this.dices = new ArrayList<>();
 		this.effectTypes = new ArrayList<>();
+		playerTimer = new Timer() ;
 	}
 
 	public String getUserName() {
@@ -118,4 +121,11 @@ public class Player {
 		this.effectTypes = effectTypes;
 	}
 
+	public Timer getPlayerTimer() {
+		return playerTimer;
+	}
+
+	public void setPlayerTimer(Timer playerTimer) {
+		this.playerTimer = playerTimer;
+	}
 }

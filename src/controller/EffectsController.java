@@ -3,6 +3,7 @@ package controller;
 import model.Dice;
 import model.EffectType;
 import model.Player;
+import model.Timer;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -60,7 +61,10 @@ public class EffectsController {
 
 			case HALF_TIMER:
 
-				// Not now...
+				if (!effect.isUsed()){
+					farkleController.getFarkle().getCurrentGame().getCurrentPlayer().setPlayerTimer(new Timer(15));
+
+				}
 
 				break;
 
@@ -84,7 +88,9 @@ public class EffectsController {
 
 			case DOBULE_TIMER:
 
-				//Not now...
+				if (!effect.isUsed()){
+					farkleController.getFarkle().getCurrentGame().getCurrentPlayer().setPlayerTimer(new Timer(60));
+				}
 
 				break;
 
