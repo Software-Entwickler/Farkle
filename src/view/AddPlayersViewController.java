@@ -10,10 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import model.Player;
 
 public class AddPlayersViewController extends StackPane implements Initializable {
@@ -34,9 +36,12 @@ public class AddPlayersViewController extends StackPane implements Initializable
     int currentLine;
     
     FarkleController farkleController;
+
+    private Stage primaryStage;
+
     
-    public AddPlayersViewController() {
-    	
+    public AddPlayersViewController(Stage primaryStage) {
+
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddPlayersView.fxml"));
     	loader.setRoot(this);
     	loader.setController(this);
@@ -46,6 +51,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
     		
     		e.printStackTrace();
     }
+    	this.primaryStage = primaryStage;
   
 }
 
@@ -230,7 +236,9 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		 		gamePlayers.add(gamePlayer7);
 		 	}
 			
-		 	//TODO farkleController.getFarkle().getCurrentGame().setPlayers(gamePlayers);
+		 	/*farkleController.getGameController().addPlayersToGame(gamePlayers);
+		 	farkleController.getGameController().startGame();*/
+
 		 	for(Player player : gamePlayers)
 		 	{
 		 		System.out.println(player.getUserName());
@@ -240,7 +248,12 @@ public class AddPlayersViewController extends StackPane implements Initializable
 
 	    @FXML
 	    void backToMain(ActionEvent event) {
-	    	//TODO 
+
+    		MainWindowViewController mainWindowViewController = new MainWindowViewController(this.primaryStage);
+			Scene scene = new Scene(mainWindowViewController , primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
 	    }
 
 
