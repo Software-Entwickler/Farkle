@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import model.Player;
 
 public class HUDViewController extends StackPane implements Initializable {
@@ -45,8 +46,9 @@ public class HUDViewController extends StackPane implements Initializable {
     
     FarkleController farkleController;
     
-    
-    public HUDViewController()				//Constructor
+    private Stage primaryStage;
+
+    public HUDViewController(Stage primaryStage)				//Constructor
     {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HUD.fxml"));
     	loader.setRoot(this);
@@ -57,6 +59,9 @@ public class HUDViewController extends StackPane implements Initializable {
     		
     		e.printStackTrace();
     	}
+
+    	this.primaryStage = primaryStage;
+
     }
     
     public class PlayerListViewCell extends ListCell<Player> 				// Cell Class
