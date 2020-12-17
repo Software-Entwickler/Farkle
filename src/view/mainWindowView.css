@@ -1,0 +1,20 @@
+.button {
+  -fx-color: #682c0e;
+  -fx-font-size: 24px;
+  -fx-background-radius: 5em;
+}
+
+.button:hover {
+  -fx-color: #cfd3ce;
+  -fx-font-size: 24px;
+  -fx-background-radius: 5em;
+}
+
+.right {
+  -fx-background-color: #fff;
+  -fx-text-align: center;
+}
+.left {
+  -fx-text-align: center;
+  -fx-background-color: #f0a500;
+}
