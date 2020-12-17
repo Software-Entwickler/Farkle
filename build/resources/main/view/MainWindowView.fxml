@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MainWindowViewController">
+   <children>
+      <AnchorPane prefHeight="750.0" prefWidth="1101.0" styleClass="right" stylesheets="@mainWindowView.css">
+         <children>
+            <ImageView fitHeight="517.0" fitWidth="740.0" layoutX="82.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo-farkle.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <VBox alignment="CENTER" prefHeight="750.0" prefWidth="576.0" spacing="20.0" styleClass="left" stylesheets="@mainWindowView.css">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <Button fx:id="targetFarkle" mnemonicParsing="false" onAction="#targetChoosen" prefHeight="70.0" prefWidth="280.0" stylesheets="@mainWindowView.css" text="Play 10000 Farkle">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="roundsFarkle" mnemonicParsing="false" onAction="#roundsChoosen" prefHeight="70.0" prefWidth="280.0" stylesheets="@mainWindowView.css" text="Play 10 rounds Farkle">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="exitFarkle" mnemonicParsing="false" onAction="#exitChoosen" prefHeight="70.0" prefWidth="280.0" stylesheets="@mainWindowView.css" text="Exit">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</HBox>
