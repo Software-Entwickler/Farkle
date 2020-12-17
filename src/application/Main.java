@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import view.AddPlayersViewController;
 import view.HUDViewController;
 import view.MainViewController;
+import view.MainWindowViewController;
 
 
 import java.net.URL;
@@ -32,12 +33,15 @@ public class Main extends Application {
 
 		try {
 
-			FXMLLoader loader = new FXMLLoader();
+			/*FXMLLoader loader = new FXMLLoader();
 			URL xmlUrl = getClass().getResource("../view/MainWindowView.fxml");
 			loader.setLocation(xmlUrl);
-			Parent root = loader.load();
+			Parent root = loader.load(); */
 
-			Scene scene = new Scene(root);
+			MainWindowViewController mainWindowViewController = new MainWindowViewController(primaryStage);
+
+			Scene scene = new Scene(mainWindowViewController);
+
 			primaryStage.setScene(scene);
 
 			primaryStage.setTitle("Farkle");
