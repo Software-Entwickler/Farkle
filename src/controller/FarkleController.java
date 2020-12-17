@@ -9,6 +9,8 @@ public class FarkleController {
 
 	private CalculationController calculationController = new CalculationController(this);
 
+	private GameController gameController = new GameController(this);
+
 	private AIController aIController = new AIController(this);
 
 	private RoundController roundController = new RoundController(this);
@@ -81,4 +83,11 @@ public class FarkleController {
 		return rulesController;
 	}
 
+	public GameController getGameController() {
+		return gameController;
+	}
+
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
+	}
 }
