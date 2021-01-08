@@ -33,14 +33,14 @@ public class AddPlayersViewController extends StackPane implements Initializable
     @FXML
     private Button btnStart, btnAdd, btnDelete, btnBack;
     
-    int currentLine;
+    private int currentLine;
     
-    FarkleController farkleController;
+    private FarkleController farkleController;
 
     private Stage primaryStage;
 
     
-    public AddPlayersViewController(Stage primaryStage) {
+    public AddPlayersViewController(Stage primaryStage, FarkleController farkleController) {
 
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddPlayersView.fxml"));
     	loader.setRoot(this);
@@ -52,6 +52,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
     		e.printStackTrace();
     }
     	this.primaryStage = primaryStage;
+    	this.farkleController = farkleController;
   
 }
 
@@ -99,8 +100,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
 			 avatar7.setVisible(true);
 			 currentLine = currentLine +1;
 			 break;
-		 }
-		
+		 }	
 	 }
 
 	 @FXML
@@ -236,13 +236,18 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		 		gamePlayers.add(gamePlayer7);
 		 	}
 			
-		 	/*farkleController.getGameController().addPlayersToGame(gamePlayers);
-		 	farkleController.getGameController().startGame();*/
-
-		 	for(Player player : gamePlayers)
+		 	farkleController.getGameController().addPlayersToGame(gamePlayers);
+		 	farkleController.getGameController().startGame();
+		 	for(Player player : farkleController.getFarkle().getCurrentGame().getPlayers())
 		 	{
 		 		System.out.println(player.getUserName());
 		 	}
+		 	
+		 	HUDViewController hudViewController = new HUDViewController(this.primaryStage, this.farkleController); 
+		 	Scene scene = new Scene(hudViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
+		    primaryStage.setScene(scene);
+		    primaryStage.show();
+
 		}
 	 
 
@@ -270,7 +275,6 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		
 		currentLine = 1;
 		
-		farkleController = new FarkleController();
 	}
 
 }

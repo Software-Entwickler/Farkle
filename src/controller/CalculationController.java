@@ -129,7 +129,7 @@ public class CalculationController {
 
 	}
 
-	private int [] dicesToNumbers (ArrayList<Dice> dices) {
+	int [] dicesToNumbers (ArrayList<Dice> dices) {
 
 		int [] result = new int[dices.size()];
 
