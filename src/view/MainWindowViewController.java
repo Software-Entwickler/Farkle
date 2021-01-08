@@ -68,7 +68,7 @@ public class MainWindowViewController extends HBox {
     void roundsChoosen(ActionEvent event) {
         System.out.println("10 rounds to play!");
         farkleController.getGameController().chooseTenRoundsGame();
-        AddPlayersViewController addPlayersViewController = new AddPlayersViewController(this.primaryStage);
+        AddPlayersViewController addPlayersViewController = new AddPlayersViewController(this.primaryStage, this.farkleController);
         Scene scene = new Scene(addPlayersViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -78,7 +78,7 @@ public class MainWindowViewController extends HBox {
     void targetChoosen(ActionEvent event) {
         System.out.println("10000 points to win!");
         farkleController.getGameController().chooseTenThousendGame();
-        AddPlayersViewController addPlayersViewController = new AddPlayersViewController(this.primaryStage);
+        AddPlayersViewController addPlayersViewController = new AddPlayersViewController(this.primaryStage, this.farkleController);
         Scene scene = new Scene(addPlayersViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();

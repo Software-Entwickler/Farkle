@@ -53,7 +53,14 @@ public class GameController {
 	
 	public void addPlayersToGame(ArrayList<Player> players)
 	{
-		farkleController.getFarkle().getCurrentGame().setPlayers(players);
+		if(farkleController.getFarkle().getCurrentGame() == null)
+		{
+			System.out.println("Fuck this!");
+		}
+		else
+		{
+			farkleController.getFarkle().getCurrentGame().setPlayers(players);
+		}
 	}
 	
 	public void startGame()
