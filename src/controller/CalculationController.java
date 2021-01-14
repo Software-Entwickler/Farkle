@@ -17,7 +17,8 @@ public class CalculationController {
 	public int calculate(ArrayList<Dice> dices) {
 
 		if (!this.farkleController.getRulesController().isValidCollection(dices)) return 0;
-
+		
+			
 		int [] collection = dicesToNumbers(dices);
 
 		switch (collection.length) {

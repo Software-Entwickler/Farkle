@@ -37,7 +37,9 @@ public class ActionController {
 				.collect(Collectors.toList());
 		int sum = farkleController.getCalculationController().calculate(diceArrayList);
 
+
 		if (sum == 0) {
+			System.out.println("hier");
 			throw new IllegalArgumentException();
 		} else {
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
