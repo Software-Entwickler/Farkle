@@ -12,9 +12,9 @@
    <children>
       <AnchorPane prefHeight="750.0" prefWidth="1101.0" styleClass="right" stylesheets="@mainWindowView.css">
          <children>
-            <ImageView fitHeight="517.0" fitWidth="740.0" layoutX="82.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="494.0" fitWidth="908.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@logo-farkle.jpg" />
+                  <Image url="@mainbackground2.jpg" />
                </image>
             </ImageView>
          </children>

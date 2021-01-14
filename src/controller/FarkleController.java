@@ -20,6 +20,7 @@ public class FarkleController {
 	private RulesController rulesController = new RulesController(this);
 
 	private EffectsController effectsController = new EffectsController(this);
+	private DiceController diceController = new DiceController(this);
 
 	// Constructor is empty.
 	public FarkleController() {
@@ -73,6 +74,10 @@ public class FarkleController {
 	
 	public EffectsController getEffectsController() {
 		return effectsController;
+	}
+	
+	public DiceController getDiceController() {
+		return diceController;
 	}
 
 	public void setRulesController(RulesController rulesController) {

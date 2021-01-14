@@ -8,6 +8,8 @@ public class Dice {
 
 	private boolean usedBefore ;
 	
+	
+	
 	public Dice(int value)
 	{
 		this.value = value;

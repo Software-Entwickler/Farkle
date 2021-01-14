@@ -1,176 +1,424 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
+import javax.security.auth.Refreshable;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
+import application.MusicLoader;
 import controller.FarkleController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import controller.GameController;
+import javafx.animation.ScaleTransition;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
+import javafx.scene.control.Slider;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Player;
 
-public class HUDViewController extends StackPane implements Initializable {
-
-    @FXML
-    private Menu btnExit, btnRules, btnTipp, btnHighscore, btnEffects;
-
-
-    @FXML
-    private ListView<Player> listPlayers, listRoundScores;
-
-    @FXML
-    private Button btnThrow, btnConfirm, btnBank;
-
-
-    @FXML
-    private Label labScore;
-
-    @FXML
-    private ImageView imgPlayer;
-    
-    
-    private FarkleController farkleController;
-    
-    private Stage primaryStage;
-
-    public HUDViewController(Stage primaryStage, FarkleController farkleController)				//Constructor
-    {
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HUD.fxml"));
-    	loader.setRoot(this);
-    	loader.setController(this);
-    	try {
-    		loader.load();
-    	} catch (IOException e) {
-    		
-    		e.printStackTrace();
-    	}
-
-    	this.primaryStage = primaryStage;
-    	this.farkleController = farkleController;
-    	
-    	refresh();
-
-    }
-    
-    public class PlayerListViewCell extends ListCell<Player> 				// Cell Class
-    {
-    	private StackPane stackPane = new StackPane();
-    	
-    	private ImageView imgPlayerCell = null;
-    	
-    	private Pane pane = new Pane();
-
-	    private Label labScore = new Label("");
-
-	    private Label labName = new Label("");
-	    
-	    private VBox vbox = new VBox();
-	    
-	    public PlayerListViewCell() 
-	    {
-	    	super();
-		
-	    	stackPane.getChildren().addAll(pane, vbox);
-	    	vbox.getChildren().addAll(labName, labScore);
-	    	vbox.setAlignment(Pos.BASELINE_LEFT);
-	    	vbox.setPrefWidth(120);
-	    	vbox.setMaxWidth(USE_PREF_SIZE);
-	    	vbox.setMinWidth(USE_PREF_SIZE);
-	    	vbox.setSpacing(10.0);
-	    }
+public class HUDViewController extends StackPane implements Refreshable {
 	
-	    @Override
-	    protected void updateItem(Player player, boolean empty)
+	private GameController gameController;
+	
+
+    @FXML
+    private ImageView confirmaa;
+	    @FXML
+	    private ImageView imgPlayer;
+
+	    @FXML
+	    private HBox menubar;
+
+	    @FXML
+	    private ImageView exitB;
+
+	    @FXML
+	    private ImageView rulesB;
+
+	    @FXML
+	    private ImageView tippB;
+
+	    @FXML
+	    private ImageView highscoreB;
+
+	    @FXML
+	    private ImageView effectsB;
+
+	    @FXML
+	    private ImageView bankB;
+
+	    @FXML
+	    private ImageView confirmB;
+
+	    @FXML
+	    private ImageView throwB;
+
+	    @FXML
+	    private ImageView ply1;
+
+	    @FXML
+	    private ImageView ply2;
+
+	    @FXML
+	    private ImageView ply3;
+
+	    @FXML
+	    private ImageView ply4;
+
+	    @FXML
+	    private ImageView ply5;
+
+	    @FXML
+	    private ImageView ply6;
+
+	    @FXML
+	    private ImageView ply7;
+
+	    @FXML
+	    private Label ply1username;
+
+	    @FXML
+	    private Label ply1points;
+
+	    @FXML
+	    private Label ply2username;
+
+	    @FXML
+	    private Label ply2points;
+
+	    @FXML
+	    private Label ply3username;
+
+	    @FXML
+	    private Label ply3points;
+
+	    @FXML
+	    private Label ply4username;
+
+	    @FXML
+	    private Label ply4points;
+
+	    @FXML
+	    private Label ply5username;
+
+	    @FXML
+	    private Label ply5points;
+
+	    @FXML
+	    private Label ply6username;
+
+	    @FXML
+	    private Label ply6points;
+
+	    @FXML
+	    private Label ply7username;
+
+	    @FXML
+	    private Label ply7points;
+	    
+	    @FXML
+	    private Slider musicslider;
+	    
+	    String path = "graphics/farkle/sounds/Barcelona.wav";
+	    
+	    
+	    private Media media ;
+	    
+	    private MediaPlayer mediaPlayer ;
+	    
+	    @FXML
+	    private ImageView diceArea1 =new ImageView();
+
+	    @FXML
+	    private ImageView diceArea2=new ImageView();;
+
+	    @FXML
+	    private ImageView diceArea3=new ImageView();;
+
+	    @FXML
+	    private ImageView diceArea4=new ImageView();;
+
+	    @FXML
+	    private ImageView diceArea5=new ImageView();;
+
+	    @FXML
+	    private ImageView diceArea6=new ImageView();;
+
+	    
+	    private ArrayList<ImageView> imageArea = new ArrayList<>();
+	    
+	    private FarkleController farkleController;
+	    
+	    private Stage primaryStage;
+	    
+	    private ScaleTransition scaleTransition;
+
+	    public HUDViewController(Stage primaryStage, FarkleController farkleController)				
 	    {
-    	
-	    	super.updateItem(player, empty);
-	    	setText(null);
-        	setGraphic(null);
-        	
+	    	imageArea.add(diceArea1);
+	    	imageArea.add(diceArea2);
+	    	imageArea.add(diceArea3);
+	    	imageArea.add(diceArea4);
+	    	imageArea.add(diceArea5);
+	    	imageArea.add(diceArea6);
+	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HUD1.fxml"));
+	    	loader.setRoot(this);
+	    	loader.setController(this);
+	    	try {
+	    		loader.load();
+	    	} catch (IOException e) {
+	    		
+	    		e.printStackTrace();
+	    	}
 
-        	if(player != null && !empty)
-        	{
+	    	this.primaryStage = primaryStage;
+	    	this.farkleController = farkleController;
+	    	
+	    	refresh();
 
-        		labName.setText(player.getUserName());
-        		labScore.setText("" + player.getScore());
-        		setGraphic(stackPane);
-        	}
 	    }
-    }
-
-    @FXML
-    void bank(ActionEvent event) {
-
-    }
-
-    @FXML
-    void confirmCollection(ActionEvent event) {
-
-    }
-
-    @FXML
-    void exitGame(ActionEvent event) {
-
-    }
-
-    @FXML
-    void giveATipp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void showEffects(ActionEvent event) {
-
-    }
-
-    @FXML
-    void showHighscore(ActionEvent event) {
-
-    }
-
-    @FXML
-    void showRules(ActionEvent event) {
-
-    }
-
-    @FXML
-    void throwDices(ActionEvent event) {
-
-    }
-    
-    public void refresh()
-	{
-		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
-		ObservableList<Player> ob = FXCollections.observableArrayList();
-		for(Player player : allPlayers)
-			{
-				ob.addAll(player);
+	    
+	    @FXML
+	    public void initialize() {
+	    	
+	    	/*String path = "graphics/farkle/sounds/Barcelona.wav";
+	    	media=new Media(new File(path).toURI().toString());
+	    	mediaPlayer=new MediaPlayer(media);
+	    	mediaPlayer.play();*/
+	    	mediaPlayer=MusicLoader.mediaPlayerM;
+	    	musicslider.setValue(mediaPlayer.getVolume()*100);
+	    	musicslider.valueProperty().addListener(new InvalidationListener() {
+				@Override
+				public void invalidated(Observable observable) {
+					
+					mediaPlayer.setVolume(musicslider.getValue() / 100);
+					
+				}
+	    	});
+	    	
+	    	
+	    	setScaleTransition(exitB);
+	    	setScaleTransition(rulesB);
+	    	setScaleTransition(effectsB);
+	    	setScaleTransition(tippB);
+	    	setScaleTransition(highscoreB);
+	    	setScaleTransition(bankB);
+	    	setScaleTransition(confirmB);
+	    	setScaleTransition(throwB);
+	    	
+	    	
+	    	
+	    }
+	    
+	    
+	    
+	    
+	    private void setScaleTransition(ImageView imageView)
+	    {
+	    	imageView.setOnMouseEntered(new EventHandler <MouseEvent>() {
+				public void handle(MouseEvent event) {
+					if(event.getSource() instanceof  ImageView)
+					{
+						ImageView source = (ImageView)event.getSource();
+						scaleTransition = new ScaleTransition(Duration.seconds(0.3), source);
+						scaleTransition.setToX(1.01);
+						scaleTransition.setToY(1.01);
+						scaleTransition.setCycleCount(ScaleTransition.INDEFINITE);
+						scaleTransition.setAutoReverse(true);
+						scaleTransition.play();
+					}
+					event.consume();
+				}
+			});
+	    	
+	    	imageView.setOnMouseExited(new EventHandler <MouseEvent>() {
+				public void handle(MouseEvent event) {
+					if(event.getSource() instanceof  ImageView)
+					{
+						ImageView source = (ImageView)event.getSource();
+						source.setScaleX(1.0);
+						source.setScaleY(1.0);
+						scaleTransition.stop();
+					}
+					event.consume();
+				}
+			});
+	    	
+	    	imageView.setOnMousePressed(new EventHandler <MouseEvent>() {
+				public void handle(MouseEvent event) {
+					if(event.getSource() instanceof  ImageView)
+					{
+						ImageView source = (ImageView)event.getSource();
+						DropShadow borderGlow= new DropShadow();
+						InnerShadow ligth = new InnerShadow();
+						borderGlow.setOffsetY(0f);
+						borderGlow.setOffsetX(0f);
+						borderGlow.setColor(Color.RED);
+						borderGlow.setWidth(30);
+						borderGlow.setHeight(30);
+						source.setEffect(borderGlow);
+					}
+					event.consume();
+				}
+			});
+	    	
+	    	imageView.setOnMouseReleased(new EventHandler <MouseEvent>() {
+				public void handle(MouseEvent event) {
+					if(event.getSource() instanceof  ImageView)
+					{
+						ImageView source = (ImageView)event.getSource();
+						source.setEffect(new ColorAdjust());
+					}
+					event.consume();
+				}
+			});
+	    	
+	    	
+	    }
+	    
+	    public void refresh()
+		{
+	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
+	    	playerProfil.add(ply1);
+	    	playerProfil.add(ply2);
+	    	playerProfil.add(ply3);
+	    	playerProfil.add(ply4);
+	    	playerProfil.add(ply5);
+	    	playerProfil.add(ply6);
+	    	playerProfil.add(ply7);
+	    	ArrayList<Label> labelsUsername=new ArrayList<>();
+	    	labelsUsername.add(ply1username);
+	    	labelsUsername.add(ply2username);
+	    	labelsUsername.add(ply3username);
+	    	labelsUsername.add(ply4username);
+	    	labelsUsername.add(ply5username);
+	    	labelsUsername.add(ply6username);
+	    	labelsUsername.add(ply7username);
+	    	ArrayList<Label> labelspoints=new ArrayList<>();
+	    	labelspoints.add(ply1points);
+	    	labelspoints.add(ply2points);
+	    	labelspoints.add(ply3points);
+	    	labelspoints.add(ply4points);
+	    	labelspoints.add(ply5points);
+	    	labelspoints.add(ply6points);
+	    	labelspoints.add(ply7points);
+	    	
+			ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
+			for(int i=0;i<allPlayers.size();i++){
+				playerProfil.get(i).setVisible(true);
+				labelsUsername.get(i).setText(allPlayers.get(i).getUserName());
+				labelspoints.get(i).setText("" + allPlayers.get(i).getScore());
 			}
-		listPlayers.setItems(ob);
-		listPlayers.setCellFactory(playerItem -> new PlayerListViewCell());
-	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		
 		}
 
+		@FXML
+	    void bankPressed(MouseEvent event) {
+			MusicLoader.loadSound("shining.wav");
+	    }
+
+	    @FXML
+	    void confirmPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("confirm.wav");
+	    }
+
+	    @FXML
+	    void effectsPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("button_click.wav");
+	    }
+
+	    @FXML
+	    void exitPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("game_over.wav");
+	    	System.out.println("FUCK YOU");
+	    	System.exit(0);
+
+	    }
+
+	    @FXML
+	    void highscorePressed(MouseEvent event) {
+	    	MusicLoader.loadSound("tada.wav");
+	    }
+
+	    @FXML
+	    void rulesPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("button_click.wav");
+	    }
+
+	    @FXML
+	    void throwPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("dice_throw.wav");
+	    	ArrayList<String> arr=farkleController.getActionController().throwDice();
+	    	diceArea1.setImage(new Image(arr.get(0)));
+	    	diceArea2.setImage(new Image(arr.get(1)));
+	    	diceArea3.setImage(new Image(arr.get(2)));
+	    	diceArea4.setImage(new Image(arr.get(3)));
+	    	diceArea5.setImage(new Image(arr.get(4)));
+	    	diceArea6.setImage(new Image(arr.get(5)));
+	    }
+	
+	    @FXML
+	    void tippPressed(MouseEvent event) {
+	    	MusicLoader.loadSound("button_click.wav");
+	    }
+	    
+
+	    @FXML
+	    void diceArea1Pressed(MouseEvent event) {
+	    	System.out.println(diceArea1);
+	    	diceArea1.setOpacity(0.25);
+	    }
+
+	    @FXML
+	    void diceArea2Pressed(MouseEvent event) {
+	    	diceArea2.setOpacity(0.25);
+	    }
+
+	    @FXML
+	    void diceArea3Pressed(MouseEvent event) {
+	    	diceArea3.setOpacity(0.25);
+	    }
+
+	    @FXML
+	    void diceArea4Pressed(MouseEvent event) {
+	    	diceArea4.setOpacity(0.25);
+	    }
+
+	    @FXML
+	    void diceArea5Pressed(MouseEvent event) {
+	    	diceArea5.setOpacity(0.25);
+	    }
+
+	    @FXML
+	    void diceArea6Pressed(MouseEvent event) {
+	    	diceArea6.setOpacity(0.25);
+	    }
+	    
+		@Override
+		public boolean isCurrent() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+	
 }
+	

@@ -14,6 +14,7 @@ public class Farkle {
 
 	private ArrayList<EffectType> effectTypes;
 	
+	
 	public Farkle()
 	{
 		

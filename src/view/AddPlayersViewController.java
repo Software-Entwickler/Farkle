@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import application.AlertS;
+import application.MusicLoader;
 import controller.FarkleController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Player;
@@ -38,6 +41,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
     private FarkleController farkleController;
 
     private Stage primaryStage;
+    
 
     
     public AddPlayersViewController(Stage primaryStage, FarkleController farkleController) {
@@ -53,6 +57,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
     }
     	this.primaryStage = primaryStage;
     	this.farkleController = farkleController;
+    	
   
 }
 
@@ -157,9 +162,29 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		public void startTheGame(ActionEvent event) {
 		 
 		 	ArrayList<Player> gamePlayers = new ArrayList<>();
-		 
-		 	if(currentLine == 1)
+		 	Player gamePlayer1 = new Player(player1.getText());
+	 		Player gamePlayer2 = new Player(player2.getText());
+	 		Player gamePlayer3 = new Player(player3.getText());
+	 		Player gamePlayer4 = new Player(player4.getText());
+	 		Player gamePlayer5 = new Player(player5.getText());
+	 		Player gamePlayer6 = new Player(player6.getText());
+	 		Player gamePlayer7 = new Player(player7.getText());
+	 		ArrayList<Player> gamePlayersBasic = new ArrayList<>();
+	 		gamePlayersBasic.add(gamePlayer1);
+	 		gamePlayersBasic.add(gamePlayer2);
+	 		gamePlayersBasic.add(gamePlayer3);
+	 		gamePlayersBasic.add(gamePlayer4);
+	 		gamePlayersBasic.add(gamePlayer5);
+	 		gamePlayersBasic.add(gamePlayer6);
+	 		gamePlayersBasic.add(gamePlayer7);
+	 		for(int i=0;i<currentLine;i++) {
+	 			gamePlayers.add(gamePlayersBasic.get(i));
+	 		}
+		 	
+		 /*
+	 		if(currentLine == 1)
 		 	{
+		 		
 		 		Player gamePlayer1 = new Player(player1.getText());
 		 		gamePlayers.add(gamePlayer1);
 		 	}
@@ -234,19 +259,26 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		 		gamePlayers.add(gamePlayer5);
 		 		gamePlayers.add(gamePlayer6);
 		 		gamePlayers.add(gamePlayer7);
-		 	}
+		 	}*/
 			
-		 	farkleController.getGameController().addPlayersToGame(gamePlayers);
-		 	farkleController.getGameController().startGame();
-		 	for(Player player : farkleController.getFarkle().getCurrentGame().getPlayers())
-		 	{
-		 		System.out.println(player.getUserName());
-		 	}
+	 		if(gamePlayers.size()<2) {
+	 			MusicLoader.loadSound("error.wav");
+	 			AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
+	 		}
+	 		else {
+	 			farkleController.getGameController().addPlayersToGame(gamePlayers);
+			 	farkleController.getGameController().startGame();
+			 	for(Player player : farkleController.getFarkle().getCurrentGame().getPlayers())
+			 	{
+			 		System.out.println(player.getUserName());
+			 	}
+			 	
+			 	HUDViewController hudViewController = new HUDViewController(this.primaryStage, this.farkleController); 
+			 	Scene scene = new Scene(hudViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
+			    primaryStage.setScene(scene);
+			    primaryStage.show();
+	 		}
 		 	
-		 	HUDViewController hudViewController = new HUDViewController(this.primaryStage, this.farkleController); 
-		 	Scene scene = new Scene(hudViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
-		    primaryStage.setScene(scene);
-		    primaryStage.show();
 
 		}
 	 

@@ -3,8 +3,14 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
+import application.AlertS;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import model.Dice;
 import model.Player;
 
@@ -14,9 +20,28 @@ public class ActionController {
 	private FarkleController farkleController;
 
 	public ActionController(FarkleController farkleController) {
+		fill ();
 		this.farkleController = farkleController;
 	}
+	private ArrayList<Integer> numberOfDice =new ArrayList<>();
+	
+	private void fill () {
+		for(int i=1;i<=6;i++)
+			numberOfDice.add(i);
+	}
+	
+	
+	public ArrayList<String> throwDice() {
+		ArrayList<String> fill = new ArrayList<String>();
+		 for( int i=0;i<6;i++) {
+			 Collections.shuffle(numberOfDice);
+			 fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
+			 }
+			 
+		return fill;
+	}
 
+	/*
 	public void choose(ArrayList<Dice> dices) {
 		farkleController.getCalculationController().calculate(dices);
 	}
@@ -24,6 +49,7 @@ public class ActionController {
 	public void chooseAll(ArrayList<Dice> dices) {
 		farkleController.getCalculationController().calculate(dices);
 	}
+	*/
 
 	public void bank(Player player) {
 		if (player.getRoundScore() >= 250) {
@@ -38,6 +64,7 @@ public class ActionController {
 		int sum = farkleController.getCalculationController().calculate(diceArrayList);
 
 		if (sum == 0) {
+			//AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
 			throw new IllegalArgumentException();
 		} else {
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();

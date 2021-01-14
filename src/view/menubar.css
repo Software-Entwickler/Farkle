@@ -1,0 +1,5 @@
+
+.menubar:hover{
+	-fx-border-color:#ffffff;
+	-fx-border-width: 0px 0px 3px 0px ;
+}

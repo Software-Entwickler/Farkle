@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" type="StackPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="imgPlayer" fitHeight="768.0" fitWidth="1366.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bsic_background.png" />
+         </image>
+      </ImageView>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+         <top>
+            <HBox fx:id="menubar" prefHeight="75.0" prefWidth="800.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets left="15.0" top="25.0" />
+               </padding>
+            </HBox>
+         </top>
+         <left>
+            <AnchorPane prefHeight="534.0" prefWidth="171.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="485.0" fitWidth="188.0" layoutX="17.0" opacity="0.73" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@roundsScore.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </left>
+         <bottom>
+            <HBox prefHeight="81.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </HBox>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="459.0" fitWidth="512.0" layoutX="-5.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@reserve.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <AnchorPane prefHeight="534.0" prefWidth="234.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets left="15.0" />
+               </padding>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="ply1" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply2" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply2.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply3" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="229.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply3.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply4" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply4.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply5" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply5.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply6" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="422.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply6.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="ply7" fitHeight="86.0" fitWidth="182.0" layoutX="1179.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@ply7.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="ply1username" layoutX="1224.0" layoutY="127.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply1points" layoutX="1305.0" layoutY="136.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply2username" layoutX="1224.0" layoutY="191.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply2points" layoutX="1305.0" layoutY="200.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply3username" layoutX="1224.0" layoutY="255.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply3points" layoutX="1305.0" layoutY="264.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply4username" layoutX="1224.0" layoutY="319.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply4points" layoutX="1305.0" layoutY="328.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply5username" layoutX="1224.0" layoutY="383.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply5points" layoutX="1305.0" layoutY="392.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply6username" layoutX="1224.0" layoutY="447.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply6points" layoutX="1305.0" layoutY="456.0" prefHeight="18.0" prefWidth="48.0" />
+            <Label fx:id="ply7username" layoutX="1224.0" layoutY="511.0" prefHeight="18.0" prefWidth="90.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label fx:id="ply7points" layoutX="1305.0" layoutY="520.0" prefHeight="18.0" prefWidth="48.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="700.0" prefWidth="1238.0" />
+      <AnchorPane prefHeight="541.0" prefWidth="1167.0">
+         <children>
+            <ImageView fx:id="bankB" fitHeight="86.0" fitWidth="200.0" layoutX="14.0" layoutY="593.0" onMouseClicked="#bankPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_bank.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="confirmB" fitHeight="86.0" fitWidth="200.0" layoutX="691.0" layoutY="593.0" onMouseClicked="#confirmPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_confirm.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="throwB" fitHeight="86.0" fitWidth="200.0" layoutX="903.0" layoutY="594.0" onMouseClicked="#throwPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_throw.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="exitB" fitHeight="75.0" fitWidth="232.0" layoutX="15.0" onMouseClicked="#exitPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_exit.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="rulesB" fitHeight="75.0" fitWidth="232.0" layoutX="130.0" onMouseClicked="#rulesPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_rules.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="tippB" fitHeight="75.0" fitWidth="232.0" layoutX="245.0" onMouseClicked="#tippPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_tipp.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="highscoreB" fitHeight="75.0" fitWidth="232.0" layoutX="360.0" onMouseClicked="#highscorePressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_highscore.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="effectsB" fitHeight="75.0" fitWidth="232.0" layoutX="475.0" onMouseClicked="#effectsPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@button_effects.png" />
+               </image>
+            </ImageView>
+            <Slider fx:id="musicslider" layoutX="826.0" layoutY="26.0" prefHeight="24.0" prefWidth="139.0" />
+            <ImageView fitHeight="97.0" fitWidth="90.0" layoutX="761.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@musicslider.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="diceArea1" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="225.0" onMouseClicked="#diceArea1Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea2" fitHeight="75.0" fitWidth="72.0" layoutX="849.0" layoutY="225.0" onMouseClicked="#diceArea2Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea3" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="225.0" onMouseClicked="#diceArea3Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea4" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="306.0" onMouseClicked="#diceArea4Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea5" fitHeight="75.0" fitWidth="72.0" layoutX="848.0" layoutY="306.0" onMouseClicked="#diceArea5Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea6" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="306.0" onMouseClicked="#diceArea6Pressed" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+   </children>
+</fx:root>
