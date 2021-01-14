@@ -12,19 +12,29 @@
             <Image url="@mainbackground2.jpg" />
          </image>
       </ImageView>
-      <VBox layoutX="889.0" layoutY="108.0" prefHeight="505.0" prefWidth="365.0">
+      <VBox layoutX="889.0" layoutY="41.0" prefHeight="702.0" prefWidth="367.0">
          <children>
-            <ImageView fx:id="farkle10000" fitHeight="163.0" fitWidth="349.0" onContextMenuRequested="#farkle10000Pressed" onMouseClicked="#farkle10000Pressed" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="farkle10000" fitHeight="127.0" fitWidth="272.0" onContextMenuRequested="#farkle10000Pressed" onMouseClicked="#farkle10000Pressed" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@10000main.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="farkle10Rounds" fitHeight="163.0" fitWidth="349.0" onMouseClicked="#farkle10RoundsPressed" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="farkle10Rounds" fitHeight="127.0" fitWidth="272.0" onMouseClicked="#farkle10RoundsPressed" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@10roundsmain.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="exitmain" fitHeight="163.0" fitWidth="349.0" onMouseClicked="#exitmainPressed" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="highscoremain" fitHeight="127.0" fitWidth="272.0" onMouseClicked="#highscoremainPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/highsoreB.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="optionsmain" fitHeight="127.0" fitWidth="272.0" onMouseClicked="#optionsmainPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/optionsB.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="exitmain" fitHeight="127.0" fitWidth="272.0" onMouseClicked="#exitmainPressed" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@exitmain.png" />
                </image>
