@@ -180,86 +180,6 @@ public class AddPlayersViewController extends StackPane implements Initializable
 	 		for(int i=0;i<currentLine;i++) {
 	 			gamePlayers.add(gamePlayersBasic.get(i));
 	 		}
-		 	
-		 /*
-	 		if(currentLine == 1)
-		 	{
-		 		
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 	}
-		 	else if(currentLine == 2)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 	}
-		 	else if(currentLine == 3)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		Player gamePlayer3 = new Player(player3.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 		gamePlayers.add(gamePlayer3);
-		 	}
-		 	else if(currentLine == 4)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		Player gamePlayer3 = new Player(player3.getText());
-		 		Player gamePlayer4 = new Player(player4.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 		gamePlayers.add(gamePlayer3);
-		 		gamePlayers.add(gamePlayer4);
-		 	}
-		 	else if(currentLine == 5)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		Player gamePlayer3 = new Player(player3.getText());
-		 		Player gamePlayer4 = new Player(player4.getText());
-		 		Player gamePlayer5 = new Player(player5.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 		gamePlayers.add(gamePlayer3);
-		 		gamePlayers.add(gamePlayer4);
-		 		gamePlayers.add(gamePlayer5);
-		 	}
-		 	else if(currentLine == 6)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		Player gamePlayer3 = new Player(player3.getText());
-		 		Player gamePlayer4 = new Player(player4.getText());
-		 		Player gamePlayer5 = new Player(player5.getText());
-		 		Player gamePlayer6 = new Player(player6.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 		gamePlayers.add(gamePlayer3);
-		 		gamePlayers.add(gamePlayer4);
-		 		gamePlayers.add(gamePlayer5);
-		 		gamePlayers.add(gamePlayer6);
-		 	}
-		 	else if(currentLine == 7)
-		 	{
-		 		Player gamePlayer1 = new Player(player1.getText());
-		 		Player gamePlayer2 = new Player(player2.getText());
-		 		Player gamePlayer3 = new Player(player3.getText());
-		 		Player gamePlayer4 = new Player(player4.getText());
-		 		Player gamePlayer5 = new Player(player5.getText());
-		 		Player gamePlayer6 = new Player(player6.getText());
-		 		Player gamePlayer7 = new Player(player7.getText());
-		 		gamePlayers.add(gamePlayer1);
-		 		gamePlayers.add(gamePlayer2);
-		 		gamePlayers.add(gamePlayer3);
-		 		gamePlayers.add(gamePlayer4);
-		 		gamePlayers.add(gamePlayer5);
-		 		gamePlayers.add(gamePlayer6);
-		 		gamePlayers.add(gamePlayer7);
-		 	}*/
 			
 	 		if(gamePlayers.size()<2) {
 	 			MusicLoader.loadSound("error.wav");
@@ -278,8 +198,6 @@ public class AddPlayersViewController extends StackPane implements Initializable
 			    primaryStage.setScene(scene);
 			    primaryStage.show();
 	 		}
-		 	
-
 		}
 	 
 

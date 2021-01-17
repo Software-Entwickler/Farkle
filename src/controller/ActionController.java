@@ -35,7 +35,8 @@ public class ActionController {
 		ArrayList<String> fill = new ArrayList<String>();
 		 for( int i=0;i<6;i++) {
 			 Collections.shuffle(numberOfDice);
-			 fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
+			 fill.add("" + numberOfDice.get(0));
+			 //fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
 			 }
 			 
 		return fill;
@@ -63,8 +64,10 @@ public class ActionController {
 				.collect(Collectors.toList());
 		int sum = farkleController.getCalculationController().calculate(diceArrayList);
 
+
 		if (sum == 0) {
 			//AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
+
 			throw new IllegalArgumentException();
 		} else {
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
@@ -112,8 +115,4 @@ public class ActionController {
 		players.stream().map(player -> player.getUserName() + ": " + player.getScore()).forEach(System.out::println);
 	}
 
-
-
 }
-
-
