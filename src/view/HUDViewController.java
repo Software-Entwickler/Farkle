@@ -40,6 +40,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Dice;
 import model.Player;
+import model.Round;
 
 public class HUDViewController extends StackPane implements Refreshable {
 	
@@ -233,9 +234,22 @@ public class HUDViewController extends StackPane implements Refreshable {
 		{
 	    	confirmB.setOpacity(0.25);
 	    	confirmB.setDisable(true);
-	    	bankB.setOpacity(0.25);
-	    	bankB.setDisable(true);
 	    	
+	    	
+	    	Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+	    	
+	    	if(currentPlayer.getScore() < 200 )
+	    	{
+	    		bankB.setOpacity(0.25);
+		    	bankB.setDisable(true);
+	    	}
+	    	else
+	    	{
+	    		bankB.setOpacity(1);
+		    	bankB.setDisable(false);
+	    	}
+	    	
+
 	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
 	    	playerProfil.add(ply1);
 	    	playerProfil.add(ply2);
@@ -266,7 +280,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 				playerProfil.get(i).setVisible(true);
 				labelsUsername.get(i).setText(allPlayers.get(i).getUserName());
 				labelspoints.get(i).setText("" + allPlayers.get(i).getScore());
-				if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().equals(allPlayers.get(i)))
+				playerProfil.get(i).setBlendMode(null);
+				if(currentPlayer.equals(allPlayers.get(i)))
 				{
 					playerProfil.get(i).setBlendMode(BlendMode.RED);
 				}
@@ -337,12 +352,23 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
 	    	
-	    	throwB.setOpacity(0.2);
+	    	throwB.setOpacity(0.25);
 	    	throwB.setDisable(true);
 	    	confirmB.setOpacity(1);
 	    	confirmB.setDisable(false);
-	    	bankB.setOpacity(1);
-	    	bankB.setDisable(false);
+	    	bankB.setOpacity(0.25);
+	    	bankB.setDisable(true);
+	    	
+	    	/*	Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+	    		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
+	    	 * 
+	    	 * if(farkleController.getRulesController().isOneFarkle(currentRound, currentPlayer))
+	    	{
+	    		System.out.println("Farkle");
+	    		farkleController.getRoundController().setNextPlayer();
+		    	nextPlayerOrRound();
+		    	refresh();
+	    	}*/
 	    	
 	    	arr = farkleController.getActionController().throwDice();
 	    	diceArea1.setImage(new Image("file:src/view/dice"+ arr.get(0) + ".png"));
