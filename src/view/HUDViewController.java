@@ -387,6 +387,13 @@ public class HUDViewController extends StackPane implements Refreshable {
 			diceArea6.setImage(new Image("file:src/view/dice"+ arr.get(5) + ".png"));
 
 	    	allDices = pair.getValue();
+	    	Dice d1 = allDices.get(0);
+			Dice d2 = allDices.get(1);
+			Dice d3 = allDices.get(2);
+			Dice d4 = allDices.get(3);
+			Dice d5 = allDices.get(4);
+			Dice d6 = allDices.get(5);
+
 			if(!bS1)
 			{
 				diceArea1.setVisible(true);
@@ -396,6 +403,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea1.setVisible(false);
 				diceArea1.setDisable(true);
+				allDices.remove(d1);
 			}
 			if(!bS2)
 			{
@@ -406,6 +414,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea2.setVisible(false);
 				diceArea2.setDisable(true);
+				allDices.remove(d2);
 			}
 			if(!bS3)
 			{
@@ -416,6 +425,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea3.setVisible(false);
 				diceArea3.setDisable(true);
+				allDices.remove(d3);
 			}
 			if(!bS4)
 			{
@@ -426,6 +436,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea4.setVisible(false);
 				diceArea4.setDisable(true);
+				allDices.remove(d4);
 			}
 			if(!bS5)
 			{
@@ -436,6 +447,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea5.setVisible(false);
 				diceArea5.setDisable(true);
+				allDices.remove(d5);
 			}
 			if(!bS6)
 			{
@@ -446,6 +458,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 			{
 				diceArea6.setVisible(false);
 				diceArea6.setDisable(true);
+				allDices.remove(d6);
 			}
 
 	    }
