@@ -17,8 +17,9 @@ public class Dice {
 		setUsedBefore(false);
 	}
 
-	public Dice(){
-
+	public Dice(int value, boolean used){
+		this.value = value;
+		this.used = used;
 	}
 
 	public int getValue() {

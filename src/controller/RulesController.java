@@ -144,7 +144,7 @@ public class RulesController {
 
 	private  boolean oneOrFive(int []dices) {
 		for(int i=0;i<dices.length;i++) {
-			if( !(dices[i]==1 || dices[i]==5))
+			if(!(dices[i] == 1 || dices[i] ==5))
 				return false;
 		}
 		return true;

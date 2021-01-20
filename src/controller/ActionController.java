@@ -66,8 +66,10 @@ public class ActionController {
 				.collect(Collectors.toList());
 		int sum = farkleController.getCalculationController().calculate(diceArrayList);
 
+
 		if (sum == 0) {
 			//AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
+
 			throw new IllegalArgumentException();
 		} else {
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
@@ -115,8 +117,4 @@ public class ActionController {
 		players.stream().map(player -> player.getUserName() + ": " + player.getScore()).forEach(System.out::println);
 	}
 
-
-
 }
-
-

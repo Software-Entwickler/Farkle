@@ -3,7 +3,6 @@ package view;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.security.auth.Refreshable;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -19,12 +18,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
@@ -40,17 +36,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.Pair;
-import model.Dice;
 import model.Player;
+import model.Round;
 
 public class HUDViewController extends StackPane implements Refreshable {
 	
-	private GameController gameController;
-	
+		@FXML
+		private ImageView confirmaa;
 
-    @FXML
-    private ImageView confirmaa;
 	    @FXML
 	    private ImageView imgPlayer;
 
@@ -58,133 +51,58 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    private HBox menubar;
 
 	    @FXML
-	    private ImageView exitB;
+	    private ImageView exitB, rulesB, tippB, highscoreB, effectsB, bankB, confirmB, throwB;
 
 	    @FXML
-	    private ImageView rulesB;
+	    private ImageView ply1, ply2, ply3, ply4, ply5, ply6, ply7;
 
 	    @FXML
-	    private ImageView tippB;
+	    private Label ply1username, ply2username, ply3username, ply4username, ply5username, ply6username, ply7username;
 
 	    @FXML
-	    private ImageView highscoreB;
-
-	    @FXML
-	    private ImageView effectsB;
-
-	    @FXML
-	    private ImageView bankB;
-
-	    @FXML
-	    private ImageView confirmB;
-
-	    @FXML
-	    private ImageView throwB;
-
-	    @FXML
-	    private ImageView ply1;
-
-	    @FXML
-	    private ImageView ply2;
-
-	    @FXML
-	    private ImageView ply3;
-
-	    @FXML
-	    private ImageView ply4;
-
-	    @FXML
-	    private ImageView ply5;
-
-	    @FXML
-	    private ImageView ply6;
-
-	    @FXML
-	    private ImageView ply7;
-
-	    @FXML
-	    private Label ply1username;
-
-	    @FXML
-	    private Label ply1points;
-
-	    @FXML
-	    private Label ply2username;
-
-	    @FXML
-	    private Label ply2points;
-
-	    @FXML
-	    private Label ply3username;
-
-	    @FXML
-	    private Label ply3points;
-
-	    @FXML
-	    private Label ply4username;
-
-	    @FXML
-	    private Label ply4points;
-
-	    @FXML
-	    private Label ply5username;
-
-	    @FXML
-	    private Label ply5points;
-
-	    @FXML
-	    private Label ply6username;
-
-	    @FXML
-	    private Label ply6points;
-
-	    @FXML
-	    private Label ply7username;
-
-	    @FXML
-	    private Label ply7points;
+	    private Label ply1points, ply2points, ply3points, ply4points, ply5points, ply6points, ply7points;
 	    
 	    @FXML
 	    private Slider musicslider;
-	    
-	    String path = "graphics/farkle/sounds/Barcelona.wav";
-	    
-	    
-	    private Media media ;
-	    
-	    private MediaPlayer mediaPlayer ;
-	    
+
 	    @FXML
 	    private ImageView diceArea1 =new ImageView();
 
 	    @FXML
-	    private ImageView diceArea2=new ImageView();;
+	    private ImageView diceArea2=new ImageView();
 
 	    @FXML
-	    private ImageView diceArea3=new ImageView();;
+	    private ImageView diceArea3=new ImageView();
 
 	    @FXML
-	    private ImageView diceArea4=new ImageView();;
+	    private ImageView diceArea4=new ImageView();
 
 	    @FXML
-	    private ImageView diceArea5=new ImageView();;
+	    private ImageView diceArea5=new ImageView();
 
 	    @FXML
 	    private ImageView diceArea6=new ImageView();;
 
-	    @FXML
-		private StackPane stackPane;
-
-	    @FXML
-		private AnchorPane anchorPane;
-
+	    
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
 	    
+	    String path = "graphics/farkle/sounds/Barcelona.wav";
+
+	    //private Media media ;
+
+	    private MediaPlayer mediaPlayer ;
+
 	    private FarkleController farkleController;
 	    
 	    private Stage primaryStage;
 	    
 	    private ScaleTransition scaleTransition;
+
+	    private HashMap<String, Integer> chosenMap = new HashMap<>();
+
+	    private boolean bS1 , bS2, bS3, bS4, bS5, bS6 = false;
+
+	    private ArrayList<String> arr = new ArrayList<>();
 
 	    private ArrayList<Dice> dices;
 
@@ -211,7 +129,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	this.primaryStage = primaryStage;
 	    	this.farkleController = farkleController;
 	    	this.stackPane = this;
-	    	
+
 	    	refresh();
 
 	    }
@@ -316,6 +234,24 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    
 	    public void refresh()
 		{
+	    	confirmB.setOpacity(0.25);
+	    	confirmB.setDisable(true);
+
+
+	    	Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+
+	    	if(currentPlayer.getScore() < 200 )
+	    	{
+	    		bankB.setOpacity(0.25);
+		    	bankB.setDisable(true);
+	    	}
+	    	else
+	    	{
+	    		bankB.setOpacity(1);
+		    	bankB.setDisable(false);
+	    	}
+
+
 	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
 	    	playerProfil.add(ply1);
 	    	playerProfil.add(ply2);
@@ -346,17 +282,47 @@ public class HUDViewController extends StackPane implements Refreshable {
 				playerProfil.get(i).setVisible(true);
 				labelsUsername.get(i).setText(allPlayers.get(i).getUserName());
 				labelspoints.get(i).setText("" + allPlayers.get(i).getScore());
+				playerProfil.get(i).setBlendMode(null);
+				if(currentPlayer.equals(allPlayers.get(i)))
+				{
+					playerProfil.get(i).setBlendMode(BlendMode.RED);
+				}
 			}
 		}
 
 		@FXML
 	    void bankPressed(MouseEvent event) {
 			MusicLoader.loadSound("shining.wav");
+			farkleController.getRoundController().setNextPlayer();
+	    	nextPlayerOrRound();
+	    	throwB.setDisable(false);
+	    	throwB.setOpacity(1);
+	    	diceArea1.setVisible(false);
+	    	diceArea2.setVisible(false);
+	    	diceArea3.setVisible(false);
+	    	diceArea4.setVisible(false);
+	    	diceArea5.setVisible(false);
+	    	diceArea6.setVisible(false);
+	    	refresh();
 	    }
 
 	    @FXML
 	    void confirmPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("confirm.wav");
+	    	if(!chosenMap.isEmpty())
+	    	{
+	    		throwB.setDisable(false);
+	    		throwB.setOpacity(1);
+	    		ArrayList<Integer> chosen = new ArrayList<>(chosenMap.values());
+	    		ArrayList<Dice> chosenDices = new ArrayList<>();
+	    		for(int i = 0; i < chosen.size(); i++)
+	    		{
+	    			chosenDices.add(new Dice(chosen.get(i), true));
+	    		}
+	    		farkleController.getActionController().confirm(chosenDices);
+	    		refreshField();
+	    		refresh();
+	    	}
 	    }
 
 	    @FXML
@@ -367,9 +333,11 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void exitPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("game_over.wav");
-	    	System.out.println("FUCK YOU");
-	    	System.exit(0);
-
+	    	farkleController.getFarkle().setCurrentGame(null);
+	    	MainWindowViewController mainWindowViewController = new MainWindowViewController(this.primaryStage);
+			Scene scene = new Scene(mainWindowViewController , primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
+			primaryStage.setScene(scene);
+			primaryStage.show();
 	    }
 
 	    @FXML
@@ -388,18 +356,14 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
-			Pair<ArrayList<String>, ArrayList<Dice>> currentThrow = farkleController.getActionController().throwDice();
-	    	ArrayList<String> arr = currentThrow.getKey();
+	    	ArrayList<String> arr=farkleController.getActionController().throwDice();
 	    	diceArea1.setImage(new Image(arr.get(0)));
 	    	diceArea2.setImage(new Image(arr.get(1)));
 	    	diceArea3.setImage(new Image(arr.get(2)));
 	    	diceArea4.setImage(new Image(arr.get(3)));
 	    	diceArea5.setImage(new Image(arr.get(4)));
 	    	diceArea6.setImage(new Image(arr.get(5)));
-
-	    	dices = currentThrow.getValue();
-
-		}
+	    }
 	
 	    @FXML
 	    void tippPressed(MouseEvent event) {
@@ -438,33 +402,150 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    @FXML
 	    void diceArea1Pressed(MouseEvent event) {
-	    	System.out.println(diceArea1);
-	    	diceArea1.setOpacity(0.25);
+
+	    	if(chosenMap.containsKey("diceArea1"))
+	    	{
+	    		diceArea1.setOpacity(1);
+	    		chosenMap.remove("diceArea1");
+	    	}
+	    	else
+	    	{
+	    		diceArea1.setOpacity(0.25);
+	    		chosenMap.put("diceArea1", (Integer) Integer.parseInt(arr.get(0)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea2Pressed(MouseEvent event) {
-	    	diceArea2.setOpacity(0.25);
+	    	if(chosenMap.containsKey("diceArea2"))
+	    	{
+	    		diceArea2.setOpacity(1);
+	    		chosenMap.remove("diceArea2");
+	    	}
+	    	else
+	    	{
+	    		diceArea2.setOpacity(0.25);
+	    		chosenMap.put("diceArea2", (Integer) Integer.parseInt(arr.get(1)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea3Pressed(MouseEvent event) {
-	    	diceArea3.setOpacity(0.25);
+	    	if(chosenMap.containsKey("diceArea3"))
+	    	{
+	    		diceArea3.setOpacity(1);
+	    		chosenMap.remove("diceArea3");
+	    	}
+	    	else
+	    	{
+	    		diceArea3.setOpacity(0.25);
+	    		chosenMap.put("diceArea3", (Integer) Integer.parseInt(arr.get(2)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea4Pressed(MouseEvent event) {
-	    	diceArea4.setOpacity(0.25);
+	    	if(chosenMap.containsKey("diceArea4"))
+	    	{
+	    		diceArea4.setOpacity(1);
+	    		chosenMap.remove("diceArea4");
+	    	}
+	    	else
+	    	{
+	    		diceArea4.setOpacity(0.25);
+	    		chosenMap.put("diceArea4", (Integer) Integer.parseInt(arr.get(3)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea5Pressed(MouseEvent event) {
-	    	diceArea5.setOpacity(0.25);
+	    	if(chosenMap.containsKey("diceArea5"))
+	    	{
+	    		diceArea5.setOpacity(1);
+	    		chosenMap.remove("diceArea5");
+	    	}
+	    	else
+	    	{
+	    		diceArea5.setOpacity(0.25);
+	    		chosenMap.put("diceArea5", (Integer) Integer.parseInt(arr.get(4)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea6Pressed(MouseEvent event) {
-	    	diceArea6.setOpacity(0.25);
+	    	if(chosenMap.containsKey("diceArea6"))
+	    	{
+	    		diceArea6.setOpacity(1);
+	    		chosenMap.remove("diceArea6");
+	    	}
+	    	else
+	    	{
+	    		diceArea6.setOpacity(0.25);
+	    		chosenMap.put("diceArea6", (Integer) Integer.parseInt(arr.get(5)));
+	    	}
+	    }
+
+	    private void refreshField()
+	    {
+	    	if(chosenMap.containsKey("diceArea1"))
+	    	{
+	    		System.out.print("Contains diceArea1");
+	    		bS1 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea2"))
+	    	{
+	    		System.out.print("Contains diceArea2");
+	    		bS2 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea3"))
+	    	{
+	    		System.out.print("Contains diceArea3");
+	    		bS3 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea4"))
+	    	{
+	    		System.out.print("Contains diceArea4");
+	    		bS4 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea5"))
+	    	{
+	    		System.out.print("Contains diceArea5");
+	    		bS5 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea6"))
+	    	{
+	    		System.out.print("Contains diceArea6");
+	    		bS6 = true;
+	    	}
+	    	chosenMap.clear();
+	    	diceArea1.setDisable(true);
+    		//diceArea1.setVisible(false);
+    		diceArea2.setDisable(true);
+    		//diceArea2.setVisible(false);
+    		diceArea3.setDisable(true);
+    		//diceArea3.setVisible(false);
+    		diceArea4.setDisable(true);
+    		//diceArea4.setVisible(false);
+    		diceArea5.setDisable(true);
+    		//diceArea5.setVisible(false);
+    		diceArea6.setDisable(true);
+    		//diceArea6.setVisible(false);
+	    }
+
+	    private void nextPlayerOrRound()
+	    {
+	    	bS1 = false;
+	    	bS2 = false;
+	    	bS3 = false;
+	    	bS4 = false;
+	    	bS5 = false;
+	    	bS6 = false;
+	    	diceArea1.setOpacity(1);
+	    	diceArea2.setOpacity(1);
+	    	diceArea3.setOpacity(1);
+	    	diceArea4.setOpacity(1);
+	    	diceArea5.setOpacity(1);
+	    	diceArea6.setOpacity(1);
 	    }
 	    
 		@Override
@@ -475,4 +556,3 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	
 }
-	
