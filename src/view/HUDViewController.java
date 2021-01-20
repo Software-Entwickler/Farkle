@@ -368,17 +368,85 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
 
-	    	Pair<ArrayList<String>, ArrayList<Dice>> pair = farkleController.getActionController().throwDice();
+			throwB.setOpacity(0.25);
+			throwB.setDisable(true);
+			confirmB.setOpacity(1);
+			confirmB.setDisable(false);
+			bankB.setOpacity(0.25);
+			bankB.setDisable(true);
+
+
+			Pair<ArrayList<String>, ArrayList<Dice>> pair = farkleController.getActionController().throwDice();
 
 	    	arr = pair.getKey();
-	    	diceArea1.setImage(new Image(arr.get(0)));
-	    	diceArea2.setImage(new Image(arr.get(1)));
-	    	diceArea3.setImage(new Image(arr.get(2)));
-	    	diceArea4.setImage(new Image(arr.get(3)));
-	    	diceArea5.setImage(new Image(arr.get(4)));
-	    	diceArea6.setImage(new Image(arr.get(5)));
+			diceArea1.setImage(new Image("file:src/view/dice"+ arr.get(0) + ".png"));
+			diceArea2.setImage(new Image("file:src/view/dice"+ arr.get(1) + ".png"));
+			diceArea3.setImage(new Image("file:src/view/dice"+ arr.get(2) + ".png"));
+			diceArea4.setImage(new Image("file:src/view/dice"+ arr.get(3) + ".png"));
+			diceArea5.setImage(new Image("file:src/view/dice"+ arr.get(4) + ".png"));
+			diceArea6.setImage(new Image("file:src/view/dice"+ arr.get(5) + ".png"));
 
 	    	allDices = pair.getValue();
+			if(!bS1)
+			{
+				diceArea1.setVisible(true);
+				diceArea1.setDisable(false);
+			}
+			else
+			{
+				diceArea1.setVisible(false);
+				diceArea1.setDisable(true);
+			}
+			if(!bS2)
+			{
+				diceArea2.setVisible(true);
+				diceArea2.setDisable(false);
+			}
+			else
+			{
+				diceArea2.setVisible(false);
+				diceArea2.setDisable(true);
+			}
+			if(!bS3)
+			{
+				diceArea3.setVisible(true);
+				diceArea3.setDisable(false);
+			}
+			else
+			{
+				diceArea3.setVisible(false);
+				diceArea3.setDisable(true);
+			}
+			if(!bS4)
+			{
+				diceArea4.setVisible(true);
+				diceArea4.setDisable(false);
+			}
+			else
+			{
+				diceArea4.setVisible(false);
+				diceArea4.setDisable(true);
+			}
+			if(!bS5)
+			{
+				diceArea5.setVisible(true);
+				diceArea5.setDisable(false);
+			}
+			else
+			{
+				diceArea5.setVisible(false);
+				diceArea5.setDisable(true);
+			}
+			if(!bS6)
+			{
+				diceArea6.setVisible(true);
+				diceArea6.setDisable(false);
+			}
+			else
+			{
+				diceArea6.setVisible(false);
+				diceArea6.setDisable(true);
+			}
 
 	    }
 	
@@ -415,161 +483,161 @@ public class HUDViewController extends StackPane implements Refreshable {
 			button.setOnMouseClicked(e -> stackPane.getChildren().remove(vBox));
 
 	    }
-	    
 
-	    @FXML
-	    void diceArea1Pressed(MouseEvent event) {
 
-	    	if(chosenMap.containsKey("diceArea1"))
-	    	{
-	    		diceArea1.setOpacity(1);
-	    		chosenMap.remove("diceArea1");
-	    	}
-	    	else
-	    	{
-	    		diceArea1.setOpacity(0.25);
-	    		chosenMap.put("diceArea1", (Integer) Integer.parseInt(arr.get(0)));
-	    	}
-	    }
+	@FXML
+	void diceArea1Pressed(MouseEvent event) {
 
-	    @FXML
-	    void diceArea2Pressed(MouseEvent event) {
-	    	if(chosenMap.containsKey("diceArea2"))
-	    	{
-	    		diceArea2.setOpacity(1);
-	    		chosenMap.remove("diceArea2");
-	    	}
-	    	else
-	    	{
-	    		diceArea2.setOpacity(0.25);
-	    		chosenMap.put("diceArea2", (Integer) Integer.parseInt(arr.get(1)));
-	    	}
-	    }
-
-	    @FXML
-	    void diceArea3Pressed(MouseEvent event) {
-	    	if(chosenMap.containsKey("diceArea3"))
-	    	{
-	    		diceArea3.setOpacity(1);
-	    		chosenMap.remove("diceArea3");
-	    	}
-	    	else
-	    	{
-	    		diceArea3.setOpacity(0.25);
-	    		chosenMap.put("diceArea3", (Integer) Integer.parseInt(arr.get(2)));
-	    	}
-	    }
-
-	    @FXML
-	    void diceArea4Pressed(MouseEvent event) {
-	    	if(chosenMap.containsKey("diceArea4"))
-	    	{
-	    		diceArea4.setOpacity(1);
-	    		chosenMap.remove("diceArea4");
-	    	}
-	    	else
-	    	{
-	    		diceArea4.setOpacity(0.25);
-	    		chosenMap.put("diceArea4", (Integer) Integer.parseInt(arr.get(3)));
-	    	}
-	    }
-
-	    @FXML
-	    void diceArea5Pressed(MouseEvent event) {
-	    	if(chosenMap.containsKey("diceArea5"))
-	    	{
-	    		diceArea5.setOpacity(1);
-	    		chosenMap.remove("diceArea5");
-	    	}
-	    	else
-	    	{
-	    		diceArea5.setOpacity(0.25);
-	    		chosenMap.put("diceArea5", (Integer) Integer.parseInt(arr.get(4)));
-	    	}
-	    }
-
-	    @FXML
-	    void diceArea6Pressed(MouseEvent event) {
-	    	if(chosenMap.containsKey("diceArea6"))
-	    	{
-	    		diceArea6.setOpacity(1);
-	    		chosenMap.remove("diceArea6");
-	    	}
-	    	else
-	    	{
-	    		diceArea6.setOpacity(0.25);
-	    		chosenMap.put("diceArea6", (Integer) Integer.parseInt(arr.get(5)));
-	    	}
-	    }
-
-	    private void refreshField()
-	    {
-	    	if(chosenMap.containsKey("diceArea1"))
-	    	{
-	    		System.out.print("Contains diceArea1");
-	    		bS1 = true;
-	    	}
-	    	if(chosenMap.containsKey("diceArea2"))
-	    	{
-	    		System.out.print("Contains diceArea2");
-	    		bS2 = true;
-	    	}
-	    	if(chosenMap.containsKey("diceArea3"))
-	    	{
-	    		System.out.print("Contains diceArea3");
-	    		bS3 = true;
-	    	}
-	    	if(chosenMap.containsKey("diceArea4"))
-	    	{
-	    		System.out.print("Contains diceArea4");
-	    		bS4 = true;
-	    	}
-	    	if(chosenMap.containsKey("diceArea5"))
-	    	{
-	    		System.out.print("Contains diceArea5");
-	    		bS5 = true;
-	    	}
-	    	if(chosenMap.containsKey("diceArea6"))
-	    	{
-	    		System.out.print("Contains diceArea6");
-	    		bS6 = true;
-	    	}
-	    	chosenMap.clear();
-	    	diceArea1.setDisable(true);
-    		//diceArea1.setVisible(false);
-    		diceArea2.setDisable(true);
-    		//diceArea2.setVisible(false);
-    		diceArea3.setDisable(true);
-    		//diceArea3.setVisible(false);
-    		diceArea4.setDisable(true);
-    		//diceArea4.setVisible(false);
-    		diceArea5.setDisable(true);
-    		//diceArea5.setVisible(false);
-    		diceArea6.setDisable(true);
-    		//diceArea6.setVisible(false);
-	    }
-
-	    private void nextPlayerOrRound()
-	    {
-	    	bS1 = false;
-	    	bS2 = false;
-	    	bS3 = false;
-	    	bS4 = false;
-	    	bS5 = false;
-	    	bS6 = false;
-	    	diceArea1.setOpacity(1);
-	    	diceArea2.setOpacity(1);
-	    	diceArea3.setOpacity(1);
-	    	diceArea4.setOpacity(1);
-	    	diceArea5.setOpacity(1);
-	    	diceArea6.setOpacity(1);
-	    }
-	    
-		@Override
-		public boolean isCurrent() {
-			// TODO Auto-generated method stub
-			return false;
+		if(chosenMap.containsKey("diceArea1"))
+		{
+			diceArea1.setOpacity(1);
+			chosenMap.remove("diceArea1");
 		}
+		else
+		{
+			diceArea1.setOpacity(0.25);
+			chosenMap.put("diceArea1", (Integer) Integer.parseInt(arr.get(0)));
+		}
+	}
 
-	
+	@FXML
+	void diceArea2Pressed(MouseEvent event) {
+		if(chosenMap.containsKey("diceArea2"))
+		{
+			diceArea2.setOpacity(1);
+			chosenMap.remove("diceArea2");
+		}
+		else
+		{
+			diceArea2.setOpacity(0.25);
+			chosenMap.put("diceArea2", (Integer) Integer.parseInt(arr.get(1)));
+		}
+	}
+
+	@FXML
+	void diceArea3Pressed(MouseEvent event) {
+		if(chosenMap.containsKey("diceArea3"))
+		{
+			diceArea3.setOpacity(1);
+			chosenMap.remove("diceArea3");
+		}
+		else
+		{
+			diceArea3.setOpacity(0.25);
+			chosenMap.put("diceArea3", (Integer) Integer.parseInt(arr.get(2)));
+		}
+	}
+
+	@FXML
+	void diceArea4Pressed(MouseEvent event) {
+		if(chosenMap.containsKey("diceArea4"))
+		{
+			diceArea4.setOpacity(1);
+			chosenMap.remove("diceArea4");
+		}
+		else
+		{
+			diceArea4.setOpacity(0.25);
+			chosenMap.put("diceArea4", (Integer) Integer.parseInt(arr.get(3)));
+		}
+	}
+
+	@FXML
+	void diceArea5Pressed(MouseEvent event) {
+		if(chosenMap.containsKey("diceArea5"))
+		{
+			diceArea5.setOpacity(1);
+			chosenMap.remove("diceArea5");
+		}
+		else
+		{
+			diceArea5.setOpacity(0.25);
+			chosenMap.put("diceArea5", (Integer) Integer.parseInt(arr.get(4)));
+		}
+	}
+
+	@FXML
+	void diceArea6Pressed(MouseEvent event) {
+		if(chosenMap.containsKey("diceArea6"))
+		{
+			diceArea6.setOpacity(1);
+			chosenMap.remove("diceArea6");
+		}
+		else
+		{
+			diceArea6.setOpacity(0.25);
+			chosenMap.put("diceArea6", (Integer) Integer.parseInt(arr.get(5)));
+		}
+	}
+
+	private void refreshField()
+	{
+		if(chosenMap.containsKey("diceArea1"))
+		{
+			System.out.print("Contains diceArea1");
+			bS1 = true;
+		}
+		if(chosenMap.containsKey("diceArea2"))
+		{
+			System.out.print("Contains diceArea2");
+			bS2 = true;
+		}
+		if(chosenMap.containsKey("diceArea3"))
+		{
+			System.out.print("Contains diceArea3");
+			bS3 = true;
+		}
+		if(chosenMap.containsKey("diceArea4"))
+		{
+			System.out.print("Contains diceArea4");
+			bS4 = true;
+		}
+		if(chosenMap.containsKey("diceArea5"))
+		{
+			System.out.print("Contains diceArea5");
+			bS5 = true;
+		}
+		if(chosenMap.containsKey("diceArea6"))
+		{
+			System.out.print("Contains diceArea6");
+			bS6 = true;
+		}
+		chosenMap.clear();
+		diceArea1.setDisable(true);
+		//diceArea1.setVisible(false);
+		diceArea2.setDisable(true);
+		//diceArea2.setVisible(false);
+		diceArea3.setDisable(true);
+		//diceArea3.setVisible(false);
+		diceArea4.setDisable(true);
+		//diceArea4.setVisible(false);
+		diceArea5.setDisable(true);
+		//diceArea5.setVisible(false);
+		diceArea6.setDisable(true);
+		//diceArea6.setVisible(false);
+	}
+
+	private void nextPlayerOrRound()
+	{
+		bS1 = false;
+		bS2 = false;
+		bS3 = false;
+		bS4 = false;
+		bS5 = false;
+		bS6 = false;
+		diceArea1.setOpacity(1);
+		diceArea2.setOpacity(1);
+		diceArea3.setOpacity(1);
+		diceArea4.setOpacity(1);
+		diceArea5.setOpacity(1);
+		diceArea6.setOpacity(1);
+	}
+
+	@Override
+	public boolean isCurrent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
 }

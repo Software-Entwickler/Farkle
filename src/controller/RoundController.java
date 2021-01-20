@@ -14,9 +14,9 @@ public class RoundController {
 	public RoundController(FarkleController farkleController) {
 		this.farkleController = farkleController;
 	}
-	
-	
-	
+
+
+
 	public void setNextRound()
 	{
 		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
@@ -24,7 +24,7 @@ public class RoundController {
 		farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
 		reSetPlayers();
 	}
-	
+
 	public void addExtraRound()
 	{
 		ArrayList<Round> allRounds = farkleController.getFarkle().getCurrentGame().getRounds();
@@ -34,7 +34,7 @@ public class RoundController {
 		farkleController.getFarkle().getCurrentGame().setCurrentRound(allRounds.get(allRounds.size() - 1));
 		reSetPlayers();
 	}
-	
+
 	private void reSetPlayers()
 	{
 		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
@@ -51,7 +51,7 @@ public class RoundController {
 			}
 		}
 	}
-	
+
 	public void setNextPlayer()
 	{
 		Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
@@ -77,7 +77,7 @@ public class RoundController {
 			}
 		}
 	}
-	
+
 	public boolean isEndOfTurn(Player player)
 	{
 		if(player.getTakenDices() == 6)
@@ -93,7 +93,7 @@ public class RoundController {
 		}
 		return true;
 	}
-	
+
 	public boolean isEndOfRound(Round round) {
 		ArrayList<Player> allPlayers = round.getPlayers();
 		for(Player player : allPlayers)
@@ -103,14 +103,14 @@ public class RoundController {
 				return false;
 			}
 		}
-	 return true;
+		return true;
 	}
 
 	public boolean isEndOfGame(Round round) {
 		if( isEndOfRound(round) )
 		{
 			if(farkleController.getFarkle().getCurrentGame().getGameId() == 1 ||
-				farkleController.getFarkle().getCurrentGame().getGameId() == 3 )
+					farkleController.getFarkle().getCurrentGame().getGameId() == 3 )
 			{
 				return round.getRoundNum() >= 10;
 			}

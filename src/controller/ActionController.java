@@ -25,34 +25,24 @@ public class ActionController {
 		this.farkleController = farkleController;
 	}
 	private ArrayList<Integer> numberOfDice =new ArrayList<>();
-	
+
 	private void fill () {
 		for(int i=1;i<=6;i++)
 			numberOfDice.add(i);
 	}
-	
-	
+
+
 	public Pair<ArrayList<String>, ArrayList<Dice>> throwDice() {
 		ArrayList<String> fill = new ArrayList<String>();
 		ArrayList<Dice> dices = new ArrayList<>();
 		 for( int i=0;i<6;i++) {
 			 Collections.shuffle(numberOfDice);
-			 fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
+			 fill.add("" + numberOfDice.get(0));
 			 dices.add(new Dice(numberOfDice.get(0)));
 			 }
 			 
 		return new Pair<>(fill, dices);
 	}
-
-	/*
-	public void choose(ArrayList<Dice> dices) {
-		farkleController.getCalculationController().calculate(dices);
-	}
-
-	public void chooseAll(ArrayList<Dice> dices) {
-		farkleController.getCalculationController().calculate(dices);
-	}
-	*/
 
 	public void bank(Player player) {
 		if (player.getRoundScore() >= 250) {
