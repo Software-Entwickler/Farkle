@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.security.auth.Refreshable;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -18,6 +19,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.BlendMode;
@@ -36,6 +40,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
+import model.Dice;
 import model.Player;
 import model.Round;
 
@@ -83,7 +89,12 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    private ImageView diceArea6=new ImageView();;
 
-	    
+	    @FXML
+		private StackPane stackPane;
+
+	    private ArrayList<Dice> allDices;
+
+
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
 	    
 	    String path = "graphics/farkle/sounds/Barcelona.wav";
@@ -356,13 +367,19 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
-	    	ArrayList<String> arr=farkleController.getActionController().throwDice();
+
+	    	Pair<ArrayList<String>, ArrayList<Dice>> pair = farkleController.getActionController().throwDice();
+
+	    	arr = pair.getKey();
 	    	diceArea1.setImage(new Image(arr.get(0)));
 	    	diceArea2.setImage(new Image(arr.get(1)));
 	    	diceArea3.setImage(new Image(arr.get(2)));
 	    	diceArea4.setImage(new Image(arr.get(3)));
 	    	diceArea5.setImage(new Image(arr.get(4)));
 	    	diceArea6.setImage(new Image(arr.get(5)));
+
+	    	allDices = pair.getValue();
+
 	    }
 	
 	    @FXML
@@ -370,7 +387,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    	MusicLoader.loadSound("button_click.wav");
 
-			String tip = farkleController.getAIController().takeDecision(dices);
+			String tip = farkleController.getAIController().takeDecision(allDices);
 
 			Text text = new Text(tip);
 			text.setFill(Color.DARKGOLDENROD);
