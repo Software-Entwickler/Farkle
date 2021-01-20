@@ -3,11 +3,13 @@ package view;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.security.auth.Refreshable;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import application.MusicLoader;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import controller.FarkleController;
 import controller.GameController;
 import javafx.animation.ScaleTransition;
@@ -17,6 +19,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.ColorAdjust;
@@ -26,14 +32,16 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
+import model.Dice;
 import model.Player;
 
 public class HUDViewController extends StackPane implements Refreshable {
@@ -164,7 +172,12 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    private ImageView diceArea6=new ImageView();;
 
-	    
+	    @FXML
+		private StackPane stackPane;
+
+	    @FXML
+		private AnchorPane anchorPane;
+
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
 	    
 	    private FarkleController farkleController;
@@ -173,7 +186,11 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    
 	    private ScaleTransition scaleTransition;
 
-	    public HUDViewController(Stage primaryStage, FarkleController farkleController)				
+	    private ArrayList<Dice> dices;
+
+
+
+	    public HUDViewController(Stage primaryStage, FarkleController farkleController)
 	    {
 	    	imageArea.add(diceArea1);
 	    	imageArea.add(diceArea2);
@@ -193,6 +210,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    	this.primaryStage = primaryStage;
 	    	this.farkleController = farkleController;
+	    	this.stackPane = this;
 	    	
 	    	refresh();
 
@@ -357,6 +375,9 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void highscorePressed(MouseEvent event) {
 	    	MusicLoader.loadSound("tada.wav");
+			HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
+			highScoreViewController.setPrefSize(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+			stackPane.getChildren().add(highScoreViewController);
 	    }
 
 	    @FXML
@@ -367,18 +388,51 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
-	    	ArrayList<String> arr=farkleController.getActionController().throwDice();
+			Pair<ArrayList<String>, ArrayList<Dice>> currentThrow = farkleController.getActionController().throwDice();
+	    	ArrayList<String> arr = currentThrow.getKey();
 	    	diceArea1.setImage(new Image(arr.get(0)));
 	    	diceArea2.setImage(new Image(arr.get(1)));
 	    	diceArea3.setImage(new Image(arr.get(2)));
 	    	diceArea4.setImage(new Image(arr.get(3)));
 	    	diceArea5.setImage(new Image(arr.get(4)));
 	    	diceArea6.setImage(new Image(arr.get(5)));
-	    }
+
+	    	dices = currentThrow.getValue();
+
+		}
 	
 	    @FXML
 	    void tippPressed(MouseEvent event) {
+
 	    	MusicLoader.loadSound("button_click.wav");
+
+			String tip = farkleController.getAIController().takeDecision(dices);
+
+			Text text = new Text(tip);
+			text.setFill(Color.DARKGOLDENROD);
+			text.setStyle("-fx-font-size: 3em; -fx-font-style: italic;");
+
+			Label label = new Label("Our advice for you:");
+			label.setAlignment(Pos.CENTER);
+			label.setScaleX(2); label.setScaleY(2);
+			label.setStyle("-fx-font-size: 16px; -fx-text-fill-color: #2c061f;");
+
+			Button button = new Button("Close advice");
+			button.setAlignment(Pos.CENTER);
+			button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;");
+			button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #839b97; -fx-font-size: 20px;"));
+			button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;"));
+
+
+			VBox vBox = new VBox(label, text, button);
+			vBox.setFillWidth(true);
+			vBox.setSpacing(50);
+			vBox.setAlignment(Pos.CENTER);
+
+			stackPane.getChildren().add(vBox);
+
+			button.setOnMouseClicked(e -> stackPane.getChildren().remove(vBox));
+
 	    }
 	    
 

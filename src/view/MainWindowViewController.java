@@ -5,6 +5,7 @@ import java.io.IOException;
 import application.MusicLoader;
 import controller.FarkleController;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -61,6 +62,10 @@ public class MainWindowViewController extends AnchorPane  {
 	    @FXML
 	    private ImageView optionsmain;
 
+	    @FXML
+		private AnchorPane anchorPane;
+
+
 	    private int music=1;
 	    
 	    
@@ -83,6 +88,7 @@ public class MainWindowViewController extends AnchorPane  {
 	        }
 
 	        this.primaryStage = primaryStage;
+	        this.anchorPane = this;
 	        this.farkleController = new FarkleController();
 
 	    }
@@ -216,9 +222,8 @@ public class MainWindowViewController extends AnchorPane  {
 	    	MusicLoader.loadSound("tada.wav");
 	    	System.out.println("highSCore");
 	        HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
-	        Scene scene = new Scene(highScoreViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
+			highScoreViewController.setPrefSize(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+	 		anchorPane.getChildren().add(highScoreViewController);
 	    }
 
 	    

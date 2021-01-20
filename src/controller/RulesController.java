@@ -16,7 +16,6 @@ public class RulesController {
 
 	public RulesController(FarkleController farkleController) {
 		this.farkleController = farkleController;
-		
 	}
 	
 	public boolean isAllSelected(Player player) {
@@ -128,7 +127,7 @@ public class RulesController {
 		if(collection[0]==1 || collection[0]==5)
 			return fourCollection(collection,1,4);
 		else
-			return fourCollection(collection,0,3) && (collection[4]==collection[0] || collection[4]==5);
+			return fourCollection(collection,i,3) && (collection[4]==collection[0] || collection[4]==5);
 	}
 	
 	private  boolean sixCollection(int[] collection) {
@@ -145,7 +144,7 @@ public class RulesController {
 
 	private  boolean oneOrFive(int []dices) {
 		for(int i=0;i<dices.length;i++) {
-			if(dices[i]!=1 || dices[i]!=5)
+			if( !(dices[i]==1 || dices[i]==5))
 				return false;
 		}
 		return true;

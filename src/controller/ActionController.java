@@ -11,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Pair;
 import model.Dice;
 import model.Player;
 
@@ -31,14 +32,16 @@ public class ActionController {
 	}
 	
 	
-	public ArrayList<String> throwDice() {
+	public Pair<ArrayList<String>, ArrayList<Dice>> throwDice() {
 		ArrayList<String> fill = new ArrayList<String>();
+		ArrayList<Dice> dices = new ArrayList<>();
 		 for( int i=0;i<6;i++) {
 			 Collections.shuffle(numberOfDice);
 			 fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
+			 dices.add(new Dice(numberOfDice.get(0)));
 			 }
 			 
-		return fill;
+		return new Pair<>(fill, dices);
 	}
 
 	/*
