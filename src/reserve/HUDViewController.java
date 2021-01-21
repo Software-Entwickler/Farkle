@@ -1,19 +1,17 @@
+package reserve;
 
-package view;
+//package view;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import javax.security.auth.Refreshable;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-import application.AlertS;
 import application.MusicLoader;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import controller.FarkleController;
 import controller.GameController;
 import javafx.animation.ScaleTransition;
@@ -23,10 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.effect.BlendMode;
@@ -37,30 +32,26 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.Pair;
 import model.Dice;
 import model.Player;
 import model.Round;
+import view.MainWindowViewController;
 
 public class HUDViewController extends StackPane implements Refreshable {
 	
 		@FXML
 		private ImageView confirmaa;
-
+		
 	    @FXML
-	    private ImageView imgPlayer ;
-
-	    @FXML
-	    private ImageView farkle;
-
+	    private ImageView imgPlayer;
 
 	    @FXML
 	    private HBox menubar;
@@ -79,7 +70,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    
 	    @FXML
 	    private Slider musicslider;
-
+	    
 	    @FXML
 	    private ImageView diceArea1 =new ImageView();
 
@@ -96,43 +87,37 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    private ImageView diceArea5=new ImageView();
 
 	    @FXML
-	    private ImageView diceArea6=new ImageView();;
-
-	    @FXML
-		private StackPane stackPane;
-
-	    private ArrayList<Dice> allDices;
-
-
+	    private ImageView diceArea6=new ImageView();
+	    
+	    
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
 	    
 	    String path = "graphics/farkle/sounds/Barcelona.wav";
 	    
-
+	    //private Media media ;
+	    
 	    private MediaPlayer mediaPlayer ;
-
+	    
 	    private FarkleController farkleController;
 	    
 	    private Stage primaryStage;
 	    
 	    private ScaleTransition scaleTransition;
 	    
-	    boolean bankPressed = false;
-	    @FXML
-	    private ImageView timer;
+	    private HashMap<String, Integer> chosenMap = new HashMap<>();
+	    
+	    private boolean bS1 , bS2, bS3, bS4, bS5, bS6 = false;
 	    
 	    private ArrayList<String> arr = new ArrayList<>();
 
-	    ArrayList <Dice> choiceDices = new ArrayList<>();
-	    ArrayList <ImageView> chosenImageView = new ArrayList<>();
-
-	    private ArrayList<Dice> dices;
-
-
-
-	    public HUDViewController(Stage primaryStage, FarkleController farkleController)
+	    public HUDViewController(Stage primaryStage, FarkleController farkleController)				
 	    {
-
+	    	imageArea.add(diceArea1);
+	    	imageArea.add(diceArea2);
+	    	imageArea.add(diceArea3);
+	    	imageArea.add(diceArea4);
+	    	imageArea.add(diceArea5);
+	    	imageArea.add(diceArea6);
 	    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HUD1.fxml"));
 	    	loader.setRoot(this);
 	    	loader.setController(this);
@@ -145,20 +130,14 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    	this.primaryStage = primaryStage;
 	    	this.farkleController = farkleController;
-	    	this.stackPane = this;
-
+	    	
 	    	refresh();
 
 	    }
 	    
 	    @FXML
 	    public void initialize() {
-	    	if(OptionViewController.backGround!=null)
-	    		imgPlayer.setImage(new Image("file:src/view/graphics/"+OptionViewController.backGround+".jpeg"));
-	    	else
-	    		imgPlayer.setImage(new Image("file:src/view/bsic_background.png"));
-
-
+	    	
 	    	/*String path = "graphics/farkle/sounds/Barcelona.wav";
 	    	media=new Media(new File(path).toURI().toString());
 	    	mediaPlayer=new MediaPlayer(media);
@@ -173,12 +152,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 					
 				}
 	    	});
-	    	imageArea.add(diceArea1);
-	    	imageArea.add(diceArea2);
-	    	imageArea.add(diceArea3);
-	    	imageArea.add(diceArea4);
-	    	imageArea.add(diceArea5);
-	    	imageArea.add(diceArea6);
+	    	
 	    	
 	    	setScaleTransition(exitB);
 	    	setScaleTransition(rulesB);
@@ -188,60 +162,13 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	setScaleTransition(bankB);
 	    	setScaleTransition(confirmB);
 	    	setScaleTransition(throwB);
-	    	setChoiceDice(diceArea1);
-	    	setChoiceDice(diceArea2);
-	    	setChoiceDice(diceArea3);
-	    	setChoiceDice(diceArea4);
-	    	setChoiceDice(diceArea5);
-	    	setChoiceDice(diceArea6);
-	    }
-
-	    public void setChoiceDice(ImageView imageView) {
-	    	imageView.setOnMouseClicked(new EventHandler <MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-					if(event.getSource() instanceof ImageView) {
-						ImageView source = (ImageView) event.getSource();
-						Dice dice = getDiceOf(source);
-						if(dice!=null) {
-							if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().diceIsSelected(dice)) {
-								farkleController.getFarkle().getCurrentGame().getCurrentPlayer().deselectDice(dice);
-								chosenImageView.remove(source);
-
-								source.setOpacity(1);
-							}
-							else {
-								chosenImageView.add(source);
-								farkleController.getFarkle().getCurrentGame().getCurrentPlayer().selectDice(dice);
-								source.setOpacity(0.25);
-							}
-						}
-					}
-					event.consume();
-				}
-	    	});
+	    	
+	    	
+	    	
 	    }
 	    
-	    private Dice getDiceOf(ImageView imageView) {
-			ArrayList<Dice> fieldDices = farkleController.getFarkle().getCurrentGame().getCurrentPlayer().getDice();
-			switch (imageView.getId()) {
-			case "diceArea1":
-				return fieldDices.get(0);
-			case "diceArea2":
-				return fieldDices.get(1);
-			case "diceArea3":
-				return fieldDices.get(2);
-			case "diceArea4":
-				return fieldDices.get(3);
-			case "diceArea5":
-				return fieldDices.get(4);
-			case "diceArea6":
-				return fieldDices.get(5);
-
-			}
-			return null;
-		}
+	    
+	    
 	    
 	    private void setScaleTransition(ImageView imageView)
 	    {
@@ -310,10 +237,10 @@ public class HUDViewController extends StackPane implements Refreshable {
 		{
 	    	confirmB.setOpacity(0.25);
 	    	confirmB.setDisable(true);
-
-
+	    	
+	    	
 	    	Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
-
+	    	
 	    	if(currentPlayer.getScore() < 200 )
 	    	{
 	    		bankB.setOpacity(0.25);
@@ -324,7 +251,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    		bankB.setOpacity(1);
 		    	bankB.setDisable(false);
 	    	}
-
+	    	
 
 	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
 	    	playerProfil.add(ply1);
@@ -366,108 +293,39 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 		@FXML
 	    void bankPressed(MouseEvent event) {
-			bankPressed=true;
 			MusicLoader.loadSound("shining.wav");
 			farkleController.getRoundController().setNextPlayer();
 	    	nextPlayerOrRound();
 	    	throwB.setDisable(false);
 	    	throwB.setOpacity(1);
-	    	chosenImageView.clear();
-
+	    	diceArea1.setVisible(false);
+	    	diceArea2.setVisible(false);
+	    	diceArea3.setVisible(false);
+	    	diceArea4.setVisible(false);
+	    	diceArea5.setVisible(false);
+	    	diceArea6.setVisible(false);
 	    	refresh();
 	    }
+		
 
 	    @FXML
 	    void confirmPressed(MouseEvent event) {
-
 	    	MusicLoader.loadSound("confirm.wav");
-	    	choiceDices=farkleController.getFarkle().getCurrentGame().getCurrentPlayer().getDicesSelection();
-	    	if(choiceDices.size()!=0)
+	    	if(!chosenMap.isEmpty())
 	    	{
-	    		System.out.println("choiceDices" + choiceDices.size());
 	    		throwB.setDisable(false);
 	    		throwB.setOpacity(1);
-	    		if(farkleController.getActionController().confirm(choiceDices)!=0) {
-	    			choiceDices.clear();
-	    			try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	    			timer.setImage(new Image("file:src/view/graphics/timerYou.gif"));
-	    			refreshField();
-		    		refresh();
+	    		ArrayList<Integer> chosen = new ArrayList<>(chosenMap.values());
+	    		ArrayList<Dice> chosenDices = new ArrayList<>();
+	    		for(int i = 0; i < chosen.size(); i++)
+	    		{
+	    			chosenDices.add(new Dice(chosen.get(i), true));
 	    		}
+	    		farkleController.getActionController().confirm(chosenDices);
+	    		refreshField();
+	    		refresh();
 	    	}
-	    	if(chosenImageView.size()==6) {
-	    		throwB.setDisable(false);
-	    		throwB.setOpacity(1);
-	    		choiceDices.clear();
-	    	}
-
 	    }
-
-	    @FXML
-	    void throwPressed(MouseEvent event) {
-
-
-	    	MusicLoader.loadSound("dice_throw.wav");
-
-	    	throwB.setOpacity(0.25);
-	    	throwB.setDisable(true);
-	    	confirmB.setOpacity(1);
-	    	confirmB.setDisable(false);
-	    	bankB.setOpacity(0.25);
-	    	bankB.setDisable(true);
-
-	    	if(bankPressed) {
-	    		setImageViewVisible(true);
-	    		chosenImageView.clear();
-	    		bankPressed=false;
-	    	}
-
-	    	ArrayList<Dice>dices=new ArrayList<>();
-	    	for(int i=0;i<6;i++) {
-	    		Random rand =new Random();
-	    		if(imageViewIsSelected(imageArea.get(i)) && chosenImageView.size()!=6) {
-	    			imageArea.get(i).setImage(null);
-	    			dices.add(null);
-	    		}
-
-    			else {
-    				int randNumber = rand.nextInt ((6-1)+1)+1;
-    				dices.add(new Dice(randNumber));
-    				imageArea.get(i).setImage(new Image("file:src/view/dice"+ randNumber + ".png"));
-    			}
-	    	}
-
-			farkleController.getFarkle().getCurrentGame().getCurrentPlayer().setDice(dices);
-
-            if(chosenImageView.size()==6) {
-            	chosenImageView.clear();
-	    		setImageViewVisible(true);
-	    		diceArea1.setOpacity(1);
-	    		diceArea2.setOpacity(1);
-	    		diceArea3.setOpacity(1);
-	    		diceArea4.setOpacity(1);
-	    		diceArea5.setOpacity(1);
-	    		diceArea6.setOpacity(1);
-	    	}
-
-            Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
-
-			if(farkleController.getRulesController().isOneFarkle( currentPlayer)) {
-				  farkle.setImage(new Image("file:src/view/graphics/farkle.gif"));
-				  MusicLoader.loadSound("farkle2.wav");
-				  farkleController.getRoundController().setNextPlayer();
-					throwB.setDisable(false);
-		    		throwB.setOpacity(1);
-			    	nextPlayerOrRound();
-			    	refresh();
-			}
-	    }
-
 
 	    @FXML
 	    void effectsPressed(MouseEvent event) {
@@ -487,9 +345,6 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void highscorePressed(MouseEvent event) {
 	    	MusicLoader.loadSound("tada.wav");
-			HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
-			highScoreViewController.setPrefSize(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
-			stackPane.getChildren().add(highScoreViewController);
 	    }
 
 	    @FXML
@@ -500,184 +355,181 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
-
-			throwB.setOpacity(0.25);
-			throwB.setDisable(true);
-			confirmB.setOpacity(1);
-			confirmB.setDisable(false);
-			bankB.setOpacity(0.25);
-			bankB.setDisable(true);
-
-
-			Pair<ArrayList<String>, ArrayList<Dice>> pair = farkleController.getActionController().throwDice();
-
-	    	arr = pair.getKey();
-			diceArea1.setImage(new Image("file:src/view/dice"+ arr.get(0) + ".png"));
-			diceArea2.setImage(new Image("file:src/view/dice"+ arr.get(1) + ".png"));
-			diceArea3.setImage(new Image("file:src/view/dice"+ arr.get(2) + ".png"));
-			diceArea4.setImage(new Image("file:src/view/dice"+ arr.get(3) + ".png"));
-			diceArea5.setImage(new Image("file:src/view/dice"+ arr.get(4) + ".png"));
-			diceArea6.setImage(new Image("file:src/view/dice"+ arr.get(5) + ".png"));
-
-	    	allDices = pair.getValue();
-	    	Dice d1 = allDices.get(0);
-			Dice d2 = allDices.get(1);
-			Dice d3 = allDices.get(2);
-			Dice d4 = allDices.get(3);
-			Dice d5 = allDices.get(4);
-			Dice d6 = allDices.get(5);
-
-			if(!bS1)
-			{
-				diceArea1.setVisible(true);
-				diceArea1.setDisable(false);
-			}
-			else
-			{
-				diceArea1.setVisible(false);
-				diceArea1.setDisable(true);
-				allDices.remove(d1);
-			}
-			if(!bS2)
-			{
-				diceArea2.setVisible(true);
-				diceArea2.setDisable(false);
-			}
-			else
-			{
-				diceArea2.setVisible(false);
-				diceArea2.setDisable(true);
-				allDices.remove(d2);
-			}
-			if(!bS3)
-			{
-				diceArea3.setVisible(true);
-				diceArea3.setDisable(false);
-			}
-			else
-			{
-				diceArea3.setVisible(false);
-				diceArea3.setDisable(true);
-				allDices.remove(d3);
-			}
-			if(!bS4)
-			{
-				diceArea4.setVisible(true);
-				diceArea4.setDisable(false);
-			}
-			else
-			{
-				diceArea4.setVisible(false);
-				diceArea4.setDisable(true);
-				allDices.remove(d4);
-			}
-			if(!bS5)
-			{
-				diceArea5.setVisible(true);
-				diceArea5.setDisable(false);
-			}
-			else
-			{
-				diceArea5.setVisible(false);
-				diceArea5.setDisable(true);
-				allDices.remove(d5);
-			}
-			if(!bS6)
-			{
-				diceArea6.setVisible(true);
-				diceArea6.setDisable(false);
-			}
-			else
-			{
-				diceArea6.setVisible(false);
-				diceArea6.setDisable(true);
-				allDices.remove(d6);
-			}
-
+	    	
+	    	throwB.setOpacity(0.25);
+	    	throwB.setDisable(true);
+	    	confirmB.setOpacity(1);
+	    	confirmB.setDisable(false);
+	    	bankB.setOpacity(0.25);
+	    	bankB.setDisable(true);
+	    	
+	    	/*	Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+	    		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
+	    	 * 
+	    	 * if(farkleController.getRulesController().isOneFarkle(currentRound, currentPlayer))
+	    	{
+	    		System.out.println("Farkle");
+	    		farkleController.getRoundController().setNextPlayer();
+		    	nextPlayerOrRound();
+		    	refresh();
+	    	}*/
+	    	
+	    	/*arr = farkleController.getActionController().throwDice();
+	    	diceArea1.setImage(new Image("file:src/view/dice"+ arr.get(0) + ".png"));
+	    	diceArea2.setImage(new Image("file:src/view/dice"+ arr.get(1) + ".png"));
+	    	diceArea3.setImage(new Image("file:src/view/dice"+ arr.get(2) + ".png"));
+	    	diceArea4.setImage(new Image("file:src/view/dice"+ arr.get(3) + ".png"));
+	    	diceArea5.setImage(new Image("file:src/view/dice"+ arr.get(4) + ".png"));
+	    	diceArea6.setImage(new Image("file:src/view/dice"+ arr.get(5) + ".png"));*/
+	    	
 	    }
 	
-
-
-	    private boolean imageViewIsSelected(ImageView imageView) {
-	    	for(int i=0;i<chosenImageView.size();i++) {
-	    		if(imageView.getId().contains(chosenImageView.get(i).getId()))
-	    			return true;
-	    	}
-	    	return false;
-	    }
 	    @FXML
 	    void tippPressed(MouseEvent event) {
-
 	    	MusicLoader.loadSound("button_click.wav");
-
-			String tip = farkleController.getAIController().takeDecision(allDices);
-
-			Text text = new Text(tip);
-			text.setFill(Color.DARKGOLDENROD);
-			text.setStyle("-fx-font-size: 3em; -fx-font-style: italic;");
-
-			Label label = new Label("Our advice for you:");
-			label.setAlignment(Pos.CENTER);
-			label.setScaleX(2); label.setScaleY(2);
-			label.setStyle("-fx-font-size: 16px; -fx-text-fill-color: #2c061f;");
-
-			Button button = new Button("Close advice");
-			button.setAlignment(Pos.CENTER);
-			button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;");
-			button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #839b97; -fx-font-size: 20px;"));
-			button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;"));
-
-
-			VBox vBox = new VBox(label, text, button);
-			vBox.setFillWidth(true);
-			vBox.setSpacing(50);
-			vBox.setAlignment(Pos.CENTER);
-
-			stackPane.getChildren().add(vBox);
-
-			button.setOnMouseClicked(e -> stackPane.getChildren().remove(vBox));
-
 	    }
-
+	    
 
 	    @FXML
 	    void diceArea1Pressed(MouseEvent event) {
+	    	
+	    	if(chosenMap.containsKey("diceArea1"))
+	    	{
+	    		diceArea1.setOpacity(1);
+	    		chosenMap.remove("diceArea1");
+	    	}
+	    	else
+	    	{
+	    		diceArea1.setOpacity(0.25);
+	    		chosenMap.put("diceArea1", (Integer) Integer.parseInt(arr.get(0)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea2Pressed(MouseEvent event) {
+	    	if(chosenMap.containsKey("diceArea2"))
+	    	{
+	    		diceArea2.setOpacity(1);
+	    		chosenMap.remove("diceArea2");
+	    	}
+	    	else
+	    	{
+	    		diceArea2.setOpacity(0.25);
+	    		chosenMap.put("diceArea2", (Integer) Integer.parseInt(arr.get(1)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea3Pressed(MouseEvent event) {
+	    	if(chosenMap.containsKey("diceArea3"))
+	    	{
+	    		diceArea3.setOpacity(1);
+	    		chosenMap.remove("diceArea3");
+	    	}
+	    	else
+	    	{
+	    		diceArea3.setOpacity(0.25);
+	    		chosenMap.put("diceArea3", (Integer) Integer.parseInt(arr.get(2)));
+	    	}
 	    }
+
 	    @FXML
 	    void diceArea4Pressed(MouseEvent event) {
+	    	if(chosenMap.containsKey("diceArea4"))
+	    	{
+	    		diceArea4.setOpacity(1);
+	    		chosenMap.remove("diceArea4");
+	    	}
+	    	else
+	    	{
+	    		diceArea4.setOpacity(0.25);
+	    		chosenMap.put("diceArea4", (Integer) Integer.parseInt(arr.get(3)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea5Pressed(MouseEvent event) {
+	    	if(chosenMap.containsKey("diceArea5"))
+	    	{
+	    		diceArea5.setOpacity(1);
+	    		chosenMap.remove("diceArea5");
+	    	}
+	    	else
+	    	{
+	    		diceArea5.setOpacity(0.25);
+	    		chosenMap.put("diceArea5", (Integer) Integer.parseInt(arr.get(4)));
+	    	}
 	    }
 
 	    @FXML
 	    void diceArea6Pressed(MouseEvent event) {
-	    }
-
-	    private void setImageViewVisible(boolean set) {
-	    	for(int i=0;i<imageArea.size();i++)
-	    		imageArea.get(i).setVisible(set);
-	    }
-
-	    private void refreshField()
-	    {
-	    	for(int i=0;i<chosenImageView.size();i++) {
-	    		chosenImageView.get(i).setVisible(false);
+	    	if(chosenMap.containsKey("diceArea6"))
+	    	{
+	    		diceArea6.setOpacity(1);
+	    		chosenMap.remove("diceArea6");
+	    	}
+	    	else
+	    	{
+	    		diceArea6.setOpacity(0.25);
+	    		chosenMap.put("diceArea6", (Integer) Integer.parseInt(arr.get(5)));
 	    	}
 	    }
-
+	    
+	    private void refreshField()
+	    {
+	    	if(chosenMap.containsKey("diceArea1"))
+	    	{
+	    		System.out.print("Contains diceArea1");
+	    		bS1 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea2"))
+	    	{
+	    		System.out.print("Contains diceArea2");
+	    		bS2 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea3"))
+	    	{
+	    		System.out.print("Contains diceArea3");
+	    		bS3 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea4"))
+	    	{
+	    		System.out.print("Contains diceArea4");
+	    		bS4 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea5"))
+	    	{
+	    		System.out.print("Contains diceArea5");
+	    		bS5 = true;
+	    	}
+	    	if(chosenMap.containsKey("diceArea6"))
+	    	{
+	    		System.out.print("Contains diceArea6");
+	    		bS6 = true;
+	    	}
+	    	chosenMap.clear();
+	    	diceArea1.setDisable(true);
+    		//diceArea1.setVisible(false);
+    		diceArea2.setDisable(true);
+    		//diceArea2.setVisible(false);
+    		diceArea3.setDisable(true);
+    		//diceArea3.setVisible(false);
+    		diceArea4.setDisable(true);
+    		//diceArea4.setVisible(false);
+    		diceArea5.setDisable(true);
+    		//diceArea5.setVisible(false);
+    		diceArea6.setDisable(true);
+    		//diceArea6.setVisible(false);
+	    }
+	    
 	    private void nextPlayerOrRound()
 	    {
-	    	setImageViewVisible(false);
+	    	bS1 = false;
+	    	bS2 = false;
+	    	bS3 = false;
+	    	bS4 = false;
+	    	bS5 = false;
+	    	bS6 = false;
 	    	diceArea1.setOpacity(1);
 	    	diceArea2.setOpacity(1);
 	    	diceArea3.setOpacity(1);
@@ -692,6 +544,5 @@ public class HUDViewController extends StackPane implements Refreshable {
 			return false;
 		}
 
-
+	
 }
-

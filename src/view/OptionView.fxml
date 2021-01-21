@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="chooseB" fitHeight="99.0" fitWidth="212.0" layoutX="14.0" layoutY="262.0" onMouseClicked="#choosePressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@graphics/chooseB.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="-3.0" prefHeight="100.0" prefWidth="1196.0" spacing="3.0">
+         <children>
+            <ImageView fx:id="bg1" fitHeight="114.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg1.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bg2" fitHeight="112.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg2.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bg3" fitHeight="114.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg3.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </HBox>
+      <HBox layoutX="-3.0" layoutY="113.0" prefHeight="100.0" prefWidth="1196.0" spacing="3.0">
+         <children>
+            <ImageView fx:id="bg4" fitHeight="114.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg4.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bg5" fitHeight="112.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg5.jpeg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="bg6" fitHeight="114.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@graphics/bg6.jpeg" />
+               </image>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </HBox>
+      <ImageView fx:id="backB" fitHeight="99.0" fitWidth="212.0" layoutX="374.0" layoutY="262.0" onMouseClicked="#backPressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@graphics/backB.png" />
+         </image>
+      </ImageView>
+   </children>
+</fx:root>

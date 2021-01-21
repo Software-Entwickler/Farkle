@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import application.AlertS;
+import application.MusicLoader;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +26,7 @@ public class ActionController {
 		this.farkleController = farkleController;
 	}
 	private ArrayList<Integer> numberOfDice =new ArrayList<>();
-
+	
 	private void fill () {
 		for(int i=1;i<=6;i++)
 			numberOfDice.add(i);
@@ -44,6 +45,7 @@ public class ActionController {
 		return new Pair<>(fill, dices);
 	}
 
+
 	public void bank(Player player) {
 		if (player.getRoundScore() >= 250) {
 			farkleController.getFarkle().getCurrentGame().setCurrentPlayer(player);
@@ -51,17 +53,18 @@ public class ActionController {
 		}
 	}
 
-	public void confirm(ArrayList<Dice> dices) {
+	public int confirm(ArrayList<Dice> dices) {
+		System.out.println("Selected2: "+dices.size());
 		ArrayList<Dice> diceArrayList = (ArrayList<Dice>) dices.stream().filter(c-> c.isUsed() && !c.isUsedBefore())
 				.collect(Collectors.toList());
-		int sum = farkleController.getCalculationController().calculate(diceArrayList);
+		int sum = farkleController.getCalculationController().calculate(dices);
 
 
 		if (sum == 0) {
-			//AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
+			MusicLoader.loadSound("confirm_error.wav");
 
-			throw new IllegalArgumentException();
 		} else {
+			System.out.println(sum);
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 			player.setRoundScore(sum + player.getRoundScore());
 			player.setTakenDices(player.getTakenDices()+diceArrayList.size());
@@ -87,6 +90,7 @@ public class ActionController {
 				}
 			}
 		}
+		return sum;
 	}
 
 	public void resetPlayer (Player player){
