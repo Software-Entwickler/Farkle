@@ -11,7 +11,7 @@ public class AlertS {
 		
 		public AlertS(AlertType alertType) {
 		// TODO Auto-generated constructor stub
-	}
+	}	
 		public static void showAlert(AlertType alertType,
 										String title,
 										String headerMessage,

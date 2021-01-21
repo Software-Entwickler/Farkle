@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import application.AlertS;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
@@ -31,11 +33,13 @@ public class ActionController {
 	}
 	
 	
-	public ArrayList<String> throwDice() {
+	public ArrayList<String> throwDice(Player player) {
 		ArrayList<String> fill = new ArrayList<String>();
+		ArrayList<Dice> dices = player.getDice();
 		 for( int i=0;i<6;i++) {
 			 Collections.shuffle(numberOfDice);
 			 fill.add("" + numberOfDice.get(0));
+			 dices.get(i).setValue(numberOfDice.get(0));
 			 //fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
 			 }
 			 
@@ -65,23 +69,23 @@ public class ActionController {
 		int sum = farkleController.getCalculationController().calculate(diceArrayList);
 
 
-		if (sum == 0) {
-			//AlertS.showAlert(AlertType.INFORMATION, "Fehlermeldung", "zu wenig Spieler angegeben!", "Bitte geben Sie mind. 2 Spieler an!");
-
-			throw new IllegalArgumentException();
-		} else {
+		if(sum != 0)
+		{
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 			player.setRoundScore(sum + player.getRoundScore());
 			player.setTakenDices(player.getTakenDices()+diceArrayList.size());
+			System.out.println("Hier: " + player.getTakenDices());
 
-			if(dices.stream().allMatch(c-> c.isUsedBefore() || c.isUsed() )) {
+			if(player.getDice().stream().allMatch(c-> c.isUsedBefore() || c.isUsed() )) {
+				System.out.println("Hier wieder ");
 				player.setScore( player.getRoundScore() + player.getScore());
 				resetPlayer(player);
 			}
 			else {
 
-				dices.stream().filter(Dice::isUsed).forEach(c -> c.setUsedBefore(true));
+				player.getDice().stream().filter(elem -> elem.isUsed()).forEach(c -> c.setUsedBefore(true));
 				if (farkleController.getRoundController().isEndOfTurn(farkleController.getFarkle().getCurrentGame().getCurrentPlayer())) {
+					System.out.println("set the next player");
 					farkleController.getRoundController().setNextPlayer();
 				}
 
@@ -105,6 +109,7 @@ public class ActionController {
 		{
 			dice.setUsed(false);
 			dice.setUsedBefore(false);
+			dice.setValue(0);
 		}
 	}
 

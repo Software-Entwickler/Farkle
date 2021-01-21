@@ -37,6 +37,10 @@ public class Player {
 		this.takenDices = 0;
 		this.highscore = null;
 		this.dices = new ArrayList<>();
+		for(int index = 1; index <= 6; index++)
+		{
+			dices.add(new Dice(0));
+		}
 		this.effectTypes = new ArrayList<>();
 		playerTimer = new Timer() ;
 	}

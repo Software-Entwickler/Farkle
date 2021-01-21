@@ -48,6 +48,7 @@ public class RoundController {
 			{
 				dice.setUsed(false);
 				dice.setUsedBefore(false);
+				//dice.setValue(0);
 			}
 		}
 	}
@@ -66,7 +67,14 @@ public class RoundController {
 				{
 					if(!isEndOfGame(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
 						farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(0));
-						setNextRound();
+						if(farkleController.getFarkle().getCurrentGame().getGameId() == 2)
+						{
+							addExtraRound();
+						}
+						else
+						{
+							setNextRound();
+						}
 					}
 					else break;
 				}

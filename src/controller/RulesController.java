@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import model.Dice;
 import model.Player;
@@ -27,10 +28,17 @@ public class RulesController {
 
 	public boolean isOneFarkle(Round round, Player player) {
 		boolean check=true;
-		ArrayList<Dice> dices=player.getDice();
+		ArrayList<Dice> dices= (ArrayList<Dice>) player.getDice()
+														.stream()
+														.filter(elm-> !elm.isUsed())
+														.collect(Collectors.toList());
+		for(Dice dice : dices )
+		{
+			System.out.println("on the field is" + dice.getValue());
+		}
 		for(int i=0;i<dices.size();i++) {
 			for(int j=i;j<dices.size();j++) {
-				ArrayList<Dice> subDice=(ArrayList<Dice>) dices.subList(i, j+1);
+				ArrayList<Dice> subDice= new ArrayList<Dice>(dices.subList(i, j+1));
 				if(isValidCollection(subDice)) {
 					check=false;
 					break;
@@ -95,7 +103,6 @@ public class RulesController {
 		switch (collection.length) {
 		case 1:
 			return oneOrFive(collection);
-			
 		case 2:
 			return  oneOrFive(collection);
 		case 3:
