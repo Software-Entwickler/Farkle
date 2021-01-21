@@ -224,7 +224,10 @@ public class MainWindowViewController extends AnchorPane  {
 	    
 	    @FXML
 	    void optionsmainPressed(MouseEvent event) {
-	    	 System.out.println("options");
+	    	 OptionViewController  optionViewController = new OptionViewController(this.primaryStage);
+		     Scene scene = new Scene(optionViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
+		     primaryStage.setScene(scene);
+	         primaryStage.show();
 	    }
 }
 
