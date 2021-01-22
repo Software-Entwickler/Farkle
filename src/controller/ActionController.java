@@ -69,6 +69,7 @@ public class ActionController {
 			player.setRoundScore(sum + player.getRoundScore());
 			player.setTakenDices(player.getTakenDices()+diceArrayList.size());
 
+
 			if(dices.stream().allMatch(c-> c.isUsedBefore() || c.isUsed() )) {
 				player.setScore( player.getRoundScore() + player.getScore());
 				resetPlayer(player);

@@ -47,14 +47,13 @@ public class AIController {
 		Collections.sort(decisions, Comparator.comparing(Decision::getGain));
 		Collections.reverse(decisions);
 
+
 		/*
 		for ( Decision decision : decisions) {
 			String str = Arrays.toString(decision.collection) + " calculate: " + decision.gain;
 			System.out.println(str);
 		}
-		*/
-
-
+		 */
 		decisions.removeIf(d -> d.getGain() == 0);
 
 		if (decisions.size()>0) {

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 import javax.security.auth.Refreshable;
@@ -101,7 +102,9 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 		private StackPane stackPane;
 
-	    private ArrayList<Dice> allDices;
+	    private ArrayList<Dice> allDices = new ArrayList<>();;
+
+		private boolean bS1 , bS2, bS3, bS4, bS5, bS6;
 
 
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
@@ -384,7 +387,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	choiceDices=farkleController.getFarkle().getCurrentGame().getCurrentPlayer().getDicesSelection();
 	    	if(choiceDices.size()!=0)
 	    	{
-	    		System.out.println("choiceDices" + choiceDices.size());
+	    		System.out.println("choiceDices " + choiceDices.size());
 	    		throwB.setDisable(false);
 	    		throwB.setOpacity(1);
 	    		if(farkleController.getActionController().confirm(choiceDices)!=0) {
@@ -408,9 +411,9 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    }
 
+
 	    @FXML
 	    void throwPressed(MouseEvent event) {
-
 
 	    	MusicLoader.loadSound("dice_throw.wav");
 
@@ -439,8 +442,13 @@ public class HUDViewController extends StackPane implements Refreshable {
     				int randNumber = rand.nextInt ((6-1)+1)+1;
     				dices.add(new Dice(randNumber));
     				imageArea.get(i).setImage(new Image("file:src/view/dice"+ randNumber + ".png"));
+
     			}
 	    	}
+
+	    	allDices = dices;
+			allDices.removeIf(Objects::isNull);
+
 
 			farkleController.getFarkle().getCurrentGame().getCurrentPlayer().setDice(dices);
 
@@ -497,6 +505,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	MusicLoader.loadSound("button_click.wav");
 	    }
 
+	    /*
 	    @FXML
 	    void throwPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("dice_throw.wav");
@@ -595,6 +604,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 			}
 
 	    }
+
+	     */
 	
 
 
