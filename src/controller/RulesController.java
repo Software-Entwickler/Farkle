@@ -103,6 +103,7 @@ public class RulesController {
 		switch (collection.length) {
 		case 1:
 			return oneOrFive(collection);
+			
 		case 2:
 			return  oneOrFive(collection);
 		case 3:
@@ -125,17 +126,17 @@ public class RulesController {
 	}
 	
 	private  boolean fourCollection(int[] collection, int i, int j) {
-		if(collection[0]==1 || collection[0]==5)
-			return threeCollection(collection,1,3);
+		if(collection[i]==1 || collection[i]==5)
+			return threeCollection(collection,i+1,j);
 		else
-			return threeCollection(collection,0,2) && (collection[3]==collection[0] || collection[3]==5);
+			return threeCollection(collection,i,j-1) && (collection[j]==collection[i] || collection[j]==5);
 	}
 	
 	private  boolean fiveCollection(int[] collection, int i, int j) {
-		if(collection[0]==1 || collection[0]==5)
-			return fourCollection(collection,1,4);
+		if(collection[i]==1 || collection[i]==5)
+			return fourCollection(collection,i+1,j);
 		else
-			return fourCollection(collection,0,3) && (collection[4]==collection[0] || collection[4]==5);
+			return fourCollection(collection,i,j-1) && (collection[j]==collection[i] || collection[j]==5);
 	}
 	
 	private  boolean sixCollection(int[] collection) {
@@ -175,6 +176,15 @@ public class RulesController {
 	}
 
 	public boolean isEndOfTime(Player player) {
+		long lastTrueTime;
+		long now= System.currentTimeMillis();
+		if(true){ 
+		         lastTrueTime=now;
+		         return false;
+		}
+
+		if (lastTrueTime+21000<now)
+		         return true;
 		return false;
 	}
 
