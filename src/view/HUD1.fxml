@@ -189,12 +189,12 @@
                   <Image url="@musicslider.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="diceArea1" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="225.0" onMouseClicked="#diceArea1Pressed" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="diceArea2" fitHeight="75.0" fitWidth="72.0" layoutX="849.0" layoutY="225.0" onMouseClicked="#diceArea2Pressed" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="diceArea3" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="225.0" onMouseClicked="#diceArea3Pressed" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="diceArea4" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="306.0" onMouseClicked="#diceArea4Pressed" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="diceArea5" fitHeight="75.0" fitWidth="72.0" layoutX="848.0" layoutY="306.0" onMouseClicked="#diceArea5Pressed" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="diceArea6" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="306.0" onMouseClicked="#diceArea6Pressed" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea1" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea2" fitHeight="75.0" fitWidth="72.0" layoutX="849.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea3" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea4" fitHeight="75.0" fitWidth="72.0" layoutX="778.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea5" fitHeight="75.0" fitWidth="72.0" layoutX="848.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="diceArea6" fitHeight="75.0" fitWidth="72.0" layoutX="920.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="roundL" layoutX="885.0" layoutY="113.0" text="Round" textFill="#e4eb1d" />
          </children>
       </AnchorPane>
