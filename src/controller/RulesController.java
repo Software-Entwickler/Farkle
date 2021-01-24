@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import model.Dice;
@@ -9,7 +10,7 @@ import model.Player;
 import model.Round;
 
 
-public class RulesController {
+public class RulesController  {
 
 	private GameController gameController;
 	private FarkleController farkleController;
@@ -36,9 +37,17 @@ public class RulesController {
 		{
 			System.out.println("on the field is" + dice.getValue());
 		}
+		
+		int[]values=farkleController.getCalculationController().dicesToNumbers(dices);
+		Arrays.sort(values);
+
+		for(int i=0;i<dices.size();i++) 
+			dices.get(i).setValue(values[i]);
+	
 		for(int i=0;i<dices.size();i++) {
 			for(int j=i;j<dices.size();j++) {
 				ArrayList<Dice> subDice= new ArrayList<Dice>(dices.subList(i, j+1));
+				
 				if(isValidCollection(subDice)) {
 					check=false;
 					break;
