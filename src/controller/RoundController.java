@@ -48,7 +48,7 @@ public class RoundController {
 			{
 				dice.setUsed(false);
 				dice.setUsedBefore(false);
-				//dice.setValue(0);
+				dice.setValue(0);
 			}
 		}
 	}
@@ -76,7 +76,19 @@ public class RoundController {
 							setNextRound();
 						}
 					}
-					else break;
+					else
+					{
+						if(isDraw())
+						{
+							farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(0));
+							addExtraRound();
+						}
+						else
+						{
+							farkleController.getFarkle().getCurrentGame().setEndGame(true);
+							System.out.println("this is the end of the game");
+						}
+					}
 				}
 				else
 				{
@@ -86,37 +98,37 @@ public class RoundController {
 		}
 	}
 	
-	public boolean isEndOfTurn(Player player)
-	{
-		if(player.getTakenDices() == 6)
-		{
-			return false;
-		}
-		else
-		{
-			if(player.getDice().size() != 0)
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean isEndOfRound(Round round) {
-		ArrayList<Player> allPlayers = round.getPlayers();
-		for(Player player : allPlayers)
-		{
-			if(!player.isPlayed())
-			{
-				return false;
-			}
-		}
-	 return true;
-	}
+//	public boolean isEndOfTurn(Player player)
+//	{
+//		if(player.getTakenDices() == 6)
+//		{
+//			return false;
+//		}
+//		else
+//		{
+//			if(player.getDice().size() != 0)
+//			{
+//				return false;
+//			}
+//		}
+//		return true;
+//	}
+//	
+//	public boolean isEndOfRound(Round round) {
+//		ArrayList<Player> allPlayers = round.getPlayers();
+//		for(Player player : allPlayers)
+//		{
+//			if(!player.isPlayed())
+//			{
+//				return false;
+//			}
+//		}
+//	 return true;
+//	}
 
 	public boolean isEndOfGame(Round round) {
-		if( isEndOfRound(round) )
-		{
+//		if(isEndOfRound(round))
+//		{
 			if(farkleController.getFarkle().getCurrentGame().getGameId() == 1 ||
 				farkleController.getFarkle().getCurrentGame().getGameId() == 3 )
 			{
@@ -135,12 +147,12 @@ public class RoundController {
 				}
 				return max >= 10000;
 			}
-		}
-		return false;
+//		}
+//		return false;
 	}
 
-	public boolean isDraw(Round round) {
-		ArrayList<Player> allPlayers = round.getPlayers();
+	public boolean isDraw() {
+		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
 		for (int i = 0; i < allPlayers.size(); i++) {
 			for (int j = i + 1; j < allPlayers.size(); j++) {
 				if (allPlayers.get(i).getScore() == allPlayers.get(j).getScore()) {

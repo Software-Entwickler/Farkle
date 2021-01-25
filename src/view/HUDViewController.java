@@ -288,6 +288,17 @@ public class HUDViewController extends StackPane implements Refreshable {
 		    	bankB.setDisable(false);
 	    	}
 	    	
+	    	if(farkleController.getFarkle().getCurrentGame().isEndGame())
+	    	{
+	    		confirmB.setOpacity(0.25);
+		    	confirmB.setDisable(true);
+		    	throwB.setOpacity(0.25);
+		    	throwB.setDisable(true);
+		    	bankB.setOpacity(0.25);
+		    	bankB.setDisable(true);
+		    	//TODO score zeigen.
+	    	}
+	    	
 	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
 	    	playerProfil.add(ply1);
 	    	playerProfil.add(ply2);
@@ -365,7 +376,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	if(farkleController.getRulesController().isOneFarkle(currentRound, currentPlayer))
 	    	{
 	    		AlertS.showAlert(AlertType.WARNING, "Warning", "", "Farkle");
-	    		farkleController.getRoundController().setNextPlayer();
+	    		farkleController.getActionController().farkle(currentPlayer);
 	    		resetField();
 		    	throwB.setDisable(false);
 		    	throwB.setOpacity(1);
@@ -422,7 +433,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 		@FXML
 	    void bankPressed(MouseEvent event) {
 			MusicLoader.loadSound("shining.wav");
-			farkleController.getRoundController().setNextPlayer();
+			Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+			farkleController.getActionController().bank(currentPlayer);
 			resetField();
 	    	refresh();
 	    }

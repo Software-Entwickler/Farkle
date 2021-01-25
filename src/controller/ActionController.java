@@ -58,11 +58,16 @@ public class ActionController {
 
 	public void bank(Player player) {
 		if (player.getRoundScore() >= 250) {
-			farkleController.getFarkle().getCurrentGame().setCurrentPlayer(player);
 			farkleController.getRoundController().setNextPlayer();
 		}
 	}
 
+	public void farkle(Player player)
+	{
+		player.setRoundScore(0);
+		farkleController.getRoundController().setNextPlayer();
+	}
+	
 	public void confirm(ArrayList<Dice> dices) {
 		ArrayList<Dice> diceArrayList = (ArrayList<Dice>) dices.stream().filter(c-> c.isUsed() && !c.isUsedBefore())
 				.collect(Collectors.toList());
@@ -84,19 +89,19 @@ public class ActionController {
 			else {
 
 				player.getDice().stream().filter(elem -> elem.isUsed()).forEach(c -> c.setUsedBefore(true));
-				if (farkleController.getRoundController().isEndOfTurn(farkleController.getFarkle().getCurrentGame().getCurrentPlayer())) {
-					System.out.println("set the next player");
-					farkleController.getRoundController().setNextPlayer();
-				}
-
-				if (farkleController.getRoundController().isEndOfGame(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
-
-					if (farkleController.getRoundController().isDraw(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
-						farkleController.getRoundController().addExtraRound();
-					} else {
-						show();
-					}
-				}
+//				if (farkleController.getRoundController().isEndOfTurn(farkleController.getFarkle().getCurrentGame().getCurrentPlayer())) {
+//					System.out.println("set the next player");
+//					farkleController.getRoundController().setNextPlayer();
+//				}
+//
+//				if (farkleController.getRoundController().isEndOfGame(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
+//
+//					if (farkleController.getRoundController().isDraw(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
+//						farkleController.getRoundController().addExtraRound();
+//					} else {
+//						show();
+//					}
+//				}
 			}
 		}
 	}
@@ -113,11 +118,11 @@ public class ActionController {
 		}
 	}
 
-	private void show (){
-		ArrayList<Player> players = farkleController.getFarkle().getPlayer() ;
-		players.sort(Comparator.comparing(Player::getScore));
-		Collections.reverse(players);
-		players.stream().map(player -> player.getUserName() + ": " + player.getScore()).forEach(System.out::println);
-	}
+//	private void show (){
+//		ArrayList<Player> players = farkleController.getFarkle().getPlayer() ;
+//		players.sort(Comparator.comparing(Player::getScore));
+//		Collections.reverse(players);
+//		players.stream().map(player -> player.getUserName() + ": " + player.getScore()).forEach(System.out::println);
+//	}
 
 }

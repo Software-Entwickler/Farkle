@@ -14,10 +14,13 @@ public class Game {
 	
 	private Round currentRound;
 	
+	private boolean endGame;
+	
 	public Game(int gameId) {
 		this.gameId = gameId;
 		this.rounds = new ArrayList<>();
 		this.players = new ArrayList<>();
+		this.setEndGame(false);
 	}
 	
 	public int getGameId() {
@@ -59,6 +62,14 @@ public class Game {
 
 	public void setCurrentRound(Round currentRound) {
 		this.currentRound = currentRound;
+	}
+
+	public boolean isEndGame() {
+		return endGame;
+	}
+
+	public void setEndGame(boolean endGame) {
+		this.endGame = endGame;
 	}
 
 }
