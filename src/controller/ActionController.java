@@ -76,6 +76,7 @@ public class ActionController {
 
 		if(sum != 0)
 		{
+			System.out.println("Calculate");
 			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 			player.setRoundScore(sum + player.getRoundScore());
 			player.setTakenDices(player.getTakenDices()+diceArrayList.size());
@@ -87,7 +88,7 @@ public class ActionController {
 				resetPlayer(player);
 			}
 			else {
-
+					System.out.println("set the use to usebefore");
 				player.getDice().stream().filter(elem -> elem.isUsed()).forEach(c -> c.setUsedBefore(true));
 //				if (farkleController.getRoundController().isEndOfTurn(farkleController.getFarkle().getCurrentGame().getCurrentPlayer())) {
 //					System.out.println("set the next player");

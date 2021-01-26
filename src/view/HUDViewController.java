@@ -376,19 +376,19 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	if(farkleController.getRulesController().isOneFarkle(currentRound, currentPlayer))
 	    	{
 	    		AlertS.showAlert(AlertType.WARNING, "Warning", "", "Farkle");
-	    		farkleController.getActionController().farkle(currentPlayer);
 	    		resetField();
-		    	throwB.setDisable(false);
-		    	throwB.setOpacity(1);
-		    	refresh();
-		    	
-		    	for(int i = 0; i < currentPlayer.getDice().size(); i++)
+	    		for(int i = 0; i < currentPlayer.getDice().size(); i++)
 		    	{
+	    			System.out.println("dice "+ currentPlayer.getDice().get(i) + " " + currentPlayer.getDice().get(i).isUsed());
 		    		if(!currentPlayer.getDice().get(i).isUsed())
 		    		{
 		    			imageArea.get(i).setVisible(true);
 		    		}
 		    	}
+	    		farkleController.getActionController().farkle(currentPlayer);
+		    	throwB.setDisable(false);
+		    	throwB.setOpacity(1);
+		    	refresh();
 	    	}
 	    }
 
