@@ -33,20 +33,21 @@ public class RulesController  {
 														.stream()
 														.filter(elm-> !elm.isUsed())
 														.collect(Collectors.toList());
-		for(Dice dice : dices )
-		{
-			System.out.println("on the field is" + dice.getValue());
-		}
+		
+		ArrayList<Dice> dicesSorted = new ArrayList<>();
 		
 		int[]values=farkleController.getCalculationController().dicesToNumbers(dices);
 		Arrays.sort(values);
-
-		for(int i=0;i<dices.size();i++) 
-			dices.get(i).setValue(values[i]);
 	
-		for(int i=0;i<dices.size();i++) {
-			for(int j=i;j<dices.size();j++) {
-				ArrayList<Dice> subDice= new ArrayList<Dice>(dices.subList(i, j+1));
+		for(int i=0;i<dices.size();i++)
+		{
+			//dicesSorted.get(i).setValue(values[i]);
+			dicesSorted.add(new Dice(values[i]));
+		}
+	
+		for(int i=0;i<dicesSorted.size();i++) {
+			for(int j=i;j<dicesSorted.size();j++) {
+				ArrayList<Dice> subDice= new ArrayList<Dice>(dicesSorted.subList(i, j+1));
 				
 				if(isValidCollection(subDice)) {
 					check=false;
