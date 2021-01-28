@@ -18,11 +18,11 @@ public class GameController {
 	{
 		Game newGame = new Game(1);	// TODO 1 should changed to something like ID
 		ArrayList<Round> rounds = new ArrayList<>();
-		int roundNum = 1;
+
 		for(int i = 1; i <= 10;i++)
 		{
-			rounds.add(new Round(roundNum));
-			roundNum++;
+			rounds.add(new Round(i));
+
 		}
 		newGame.setRounds(rounds);
 		farkleController.getFarkle().setCurrentGame(newGame);
@@ -67,6 +67,11 @@ public class GameController {
 	{
 		Game currentGame = farkleController.getFarkle().getCurrentGame();
 		currentGame.setCurrentRound(currentGame.getRounds().get(0));
-		currentGame.setCurrentPlayer(currentGame.getPlayers().get(0)); 
+		currentGame.setCurrentPlayer(currentGame.getPlayers().get(0));
+
+		Player currentPlayer = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+
+		if (currentPlayer.getPlayerType()>0) farkleController.getAIController().playedByAI(currentPlayer);
+
 	}
 }

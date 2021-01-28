@@ -61,6 +61,9 @@ public class MainWindowViewController extends AnchorPane  {
 	    @FXML
 	    private ImageView optionsmain;
 
+	    @FXML
+		private AnchorPane anchorPane;
+
 	    private int music=1;
 	    
 	    
@@ -84,6 +87,7 @@ public class MainWindowViewController extends AnchorPane  {
 
 	        this.primaryStage = primaryStage;
 	        this.farkleController = new FarkleController();
+	        this.anchorPane = this;
 
 	    }
 
@@ -210,16 +214,16 @@ public class MainWindowViewController extends AnchorPane  {
 	    	
 	    	
 	    }
-	    
-	    @FXML
-	    void highscoremainPressed(MouseEvent event) {
-	    	MusicLoader.loadSound("tada.wav");
-	    	System.out.println("highSCore");
-	        HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
-	        Scene scene = new Scene(highScoreViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
-	    }
+
+	@FXML
+	void highscoremainPressed(MouseEvent event) {
+		MusicLoader.loadSound("tada.wav");
+		System.out.println("highSCore");
+		HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
+		highScoreViewController.setPrefSize(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+		anchorPane.getChildren().add(highScoreViewController);
+	}
+
 
 	    
 	    @FXML

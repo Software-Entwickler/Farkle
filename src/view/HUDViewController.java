@@ -21,8 +21,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -36,10 +38,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Dice;
@@ -98,11 +102,16 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    
 	    @FXML
 	    private ImageView timer;
+
+		@FXML
+		private StackPane stackPane;
 	    
 	    	    
 	    String path = "graphics/farkle/sounds/Barcelona.wav";
 	    
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
+
+	private ArrayList<Dice> allDices = new ArrayList<>();
 	    
 	    //private Media media ;
 	    
@@ -134,6 +143,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 
 	    	this.primaryStage = primaryStage;
 	    	this.farkleController = farkleController;
+	    	this.stackPane = this;
 	    	
 	    	refresh();
 
@@ -352,6 +362,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
 	    	
 	    	thrownDicesStrings = farkleController.getActionController().throwDice(currentPlayer);
+
 	    	
 	    	for(int i = 0; i < imageArea.size(); i++)
 	    	{
@@ -369,6 +380,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    		{
 	    			imageArea.get(i).setVisible(true);
 	    			imageArea.get(i).setDisable(false);
+	    			allDices.add(currentPlayer.getDice().get(i));
 	    		}
 	    	}
 
@@ -403,6 +415,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    		{
 	    			chosenDices.add(new Dice(chosen.get(i)));
 	    		}
+
 	    		if(farkleController.getRulesController().isValidCollection(chosenDices))
 	    		{
 	    			refreshPlayerDices();
@@ -456,22 +469,55 @@ public class HUDViewController extends StackPane implements Refreshable {
 			primaryStage.show();
 	    }
 
-	    @FXML
-	    void highscorePressed(MouseEvent event) {
-	    	MusicLoader.loadSound("tada.wav");
-	    }
-
+	@FXML
+	void highscorePressed(MouseEvent event) {
+		MusicLoader.loadSound("tada.wav");
+		HighScoreViewController highScoreViewController = new HighScoreViewController(this.primaryStage);
+		highScoreViewController.setPrefSize(primaryStage.getScene().getWidth(), primaryStage.getScene().getHeight());
+		stackPane.getChildren().add(highScoreViewController);
+	}
 	    @FXML
 	    void rulesPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("button_click.wav");
 	    }
 
-	    
-	    
-	    @FXML
-	    void tippPressed(MouseEvent event) {
-	    	MusicLoader.loadSound("button_click.wav");
-	    }
+
+
+	@FXML
+	void tippPressed(MouseEvent event) {
+
+		MusicLoader.loadSound("button_click.wav");
+
+		String tip = farkleController.getAIController().takeDecision(allDices);
+
+		allDices.clear();
+
+		Text text = new Text(tip);
+		text.setFill(Color.DARKGOLDENROD);
+		text.setStyle("-fx-font-size: 3em; -fx-font-style: italic;");
+
+		Label label = new Label("Our advice for you:");
+		label.setAlignment(Pos.CENTER);
+		label.setScaleX(2); label.setScaleY(2);
+		label.setStyle("-fx-font-size: 16px; -fx-text-fill-color: #2c061f;");
+
+		Button button = new Button("Close advice");
+		button.setAlignment(Pos.CENTER);
+		button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;");
+		button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #839b97; -fx-font-size: 20px;"));
+		button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;"));
+
+		VBox vBox = new VBox(label, text, button);
+		vBox.setFillWidth(true);
+		vBox.setSpacing(50);
+		vBox.setAlignment(Pos.CENTER);
+
+		stackPane.getChildren().add(vBox);
+
+		button.setOnMouseClicked(e -> stackPane.getChildren().remove(vBox));
+
+	}
+
 	    
 
 	   

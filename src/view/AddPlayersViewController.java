@@ -169,7 +169,16 @@ public class AddPlayersViewController extends StackPane implements Initializable
 	 		Player gamePlayer5 = new Player(player5.getText());
 	 		Player gamePlayer6 = new Player(player6.getText());
 	 		Player gamePlayer7 = new Player(player7.getText());
-	 		ArrayList<Player> gamePlayersBasic = new ArrayList<>();
+
+	 		setSelectedTypeToPlayer(gamePlayer1, playerType1.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer2, playerType2.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer3, playerType3.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer4, playerType4.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer5, playerType5.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer6, playerType6.getValue());
+		 	setSelectedTypeToPlayer(gamePlayer7, playerType7.getValue());
+
+		 ArrayList<Player> gamePlayersBasic = new ArrayList<>();
 	 		gamePlayersBasic.add(gamePlayer1);
 	 		gamePlayersBasic.add(gamePlayer2);
 	 		gamePlayersBasic.add(gamePlayer3);
@@ -188,6 +197,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
 	 		else {
 	 			farkleController.getGameController().addPlayersToGame(gamePlayers);
 			 	farkleController.getGameController().startGame();
+
 			 	for(Player player : farkleController.getFarkle().getCurrentGame().getPlayers())
 			 	{
 			 		System.out.println(player.getUserName());
@@ -225,6 +235,21 @@ public class AddPlayersViewController extends StackPane implements Initializable
 		
 		currentLine = 1;
 		
+	}
+
+	private void setSelectedTypeToPlayer (Player player, String type) {
+
+		if(player == null || type == null) return;
+
+		if(type.equals("Human")) {
+			player.setPlayerType(0);
+		} else if(type.equals("AI-Easy")) {
+			player.setPlayerType(1);
+		} else if (type.equals("AI-Normal")) {
+			player.setPlayerType(2);
+		} else {
+			player.setPlayerType(3);
+		}
 	}
 
 }

@@ -9,12 +9,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -56,7 +58,7 @@ public class HighScoreViewController extends AnchorPane implements Initializable
 
     }
 
-    public class PlayerScoreTableCell {
+    public static class PlayerScoreTableCell {
 
         private SimpleIntegerProperty score;
         private SimpleStringProperty name;
@@ -108,12 +110,14 @@ public class HighScoreViewController extends AnchorPane implements Initializable
 
     @FXML
     void goBack(ActionEvent event) {
-
-        MainWindowViewController mainWindowViewController = new MainWindowViewController(this.primaryStage);
-        Scene scene = new Scene(mainWindowViewController , primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
+        Parent parent = this.getParent();
+        if (parent instanceof StackPane){
+            StackPane stackPane = (StackPane) parent;
+            stackPane.getChildren().remove(this);
+        } else {
+            AnchorPane anchorPane = (AnchorPane) parent;
+            anchorPane.getChildren().remove(this);
+        }
     }
 
 }

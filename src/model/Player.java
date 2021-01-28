@@ -6,6 +6,8 @@ public class Player {
 
 	private String userName;
 
+	private int playerType;
+
 	private int score;
 
 	private boolean played;
@@ -36,6 +38,7 @@ public class Player {
 		this.alreadyThousend = false;
 		this.takenDices = 0;
 		this.highscore = null;
+		this.playerType = 0;
 		this.dices = new ArrayList<>();
 		for(int index = 1; index <= 6; index++)
 		{
@@ -131,5 +134,13 @@ public class Player {
 
 	public void setPlayerTimer(Timer playerTimer) {
 		this.playerTimer = playerTimer;
+	}
+
+	public int getPlayerType() {
+		return playerType;
+	}
+
+	public void setPlayerType(int playerType) {
+		this.playerType = playerType;
 	}
 }

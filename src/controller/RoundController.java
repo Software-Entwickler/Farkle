@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import model.Dice;
 import model.Player;
@@ -20,9 +22,21 @@ public class RoundController {
 	public void setNextRound()
 	{
 		Round currentRound = farkleController.getFarkle().getCurrentGame().getCurrentRound();
-		Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
-		farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
-		reSetPlayers();
+		if (farkleController.getFarkle().getCurrentGame().getGameId() == 1
+				|| farkleController.getFarkle().getCurrentGame().getGameId() == 3) {
+			if (currentRound.getRoundNum()<10) {
+				Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
+				farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
+				reSetPlayers();
+			} else {
+				farkleController.getFarkle().getCurrentGame().setCurrentRound(new Round(11));
+			}
+		} else {
+			Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
+			farkleController.getFarkle().getCurrentGame().setCurrentRound(nextRound);
+			reSetPlayers();
+		}
+
 	}
 	
 	public void addExtraRound()
@@ -67,6 +81,7 @@ public class RoundController {
 				{
 					if(!isEndOfGame(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
 						farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(0));
+
 						if(farkleController.getFarkle().getCurrentGame().getGameId() == 2)
 						{
 							addExtraRound();
@@ -75,24 +90,40 @@ public class RoundController {
 						{
 							setNextRound();
 						}
+
+						if (allPlayers.get(0).getPlayerType()>0)
+							farkleController.getAIController().playedByAI(allPlayers.get(0));
+
 					}
 					else
 					{
 						if(isDraw())
 						{
 							farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(0));
+
 							addExtraRound();
+
+							if (allPlayers.get(0).getPlayerType()>0)
+								farkleController.getAIController().playedByAI(allPlayers.get(0));
+
 						}
 						else
 						{
 							farkleController.getFarkle().getCurrentGame().setEndGame(true);
 							System.out.println("this is the end of the game");
+							Collections.sort(allPlayers, Comparator.comparing(Player::getScore));
+							Collections.reverse(allPlayers);
+							allPlayers.stream().forEach(player -> System.out.println(player.getUserName() + ": " + player.getScore()));
 						}
 					}
 				}
 				else
 				{
 					farkleController.getFarkle().getCurrentGame().setCurrentPlayer(allPlayers.get(index+1));
+
+					if (allPlayers.get(index+1).getPlayerType()>0)
+						farkleController.getAIController().playedByAI(allPlayers.get(index+1));
+
 				}
 			}
 		}
@@ -132,20 +163,14 @@ public class RoundController {
 			if(farkleController.getFarkle().getCurrentGame().getGameId() == 1 ||
 				farkleController.getFarkle().getCurrentGame().getGameId() == 3 )
 			{
-				return round.getRoundNum() >= 10;
+				return round.getRoundNum() > 10;
 			}
 			else
 			{
-				ArrayList<Player> allPlayers = round.getPlayers();
-				int max = 0;
-				for(Player player : allPlayers)
-				{
-					if(player.getScore() > max)
-					{
-						max = player.getScore();
-					}
-				}
-				return max >= 10000;
+				ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
+				Collections.sort(allPlayers, Comparator.comparing(Player::getScore));
+				Collections.reverse(allPlayers);
+				return allPlayers.get(0).getScore() >= 10000;
 			}
 //		}
 //		return false;

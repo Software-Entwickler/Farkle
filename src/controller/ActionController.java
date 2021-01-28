@@ -107,6 +107,19 @@ public class ActionController {
 		}
 	}
 
+
+	public void confirmAI(ArrayList<Dice> dices) {
+
+		int sum = farkleController.getCalculationController().calculate(dices);
+
+		if(sum != 0)
+		{
+			Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
+			player.setRoundScore(sum + player.getRoundScore());
+		}
+	}
+
+
 	public void resetPlayer (Player player){
 		player.setRoundScore(0);
 		player.setTakenDices(0);
@@ -117,6 +130,7 @@ public class ActionController {
 			dice.setUsedBefore(false);
 			dice.setValue(0);
 		}
+
 	}
 
 //	private void show (){
