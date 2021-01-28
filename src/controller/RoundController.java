@@ -30,6 +30,7 @@ public class RoundController {
 				reSetPlayers();
 			} else {
 				farkleController.getFarkle().getCurrentGame().setCurrentRound(new Round(11));
+				reSetPlayers();
 			}
 		} else {
 			Round nextRound = farkleController.getFarkle().getCurrentGame().getRounds().get(currentRound.getRoundNum());
@@ -73,6 +74,7 @@ public class RoundController {
 		currentPlayer.setPlayed(true);
 		currentPlayer.setScore(currentPlayer.getScore() + currentPlayer.getRoundScore());
 		ArrayList<Player> allPlayers = farkleController.getFarkle().getCurrentGame().getPlayers();
+
 		for(int index = 0; index < allPlayers.size(); index++)
 		{
 			if(allPlayers.get(index).equals(currentPlayer))
@@ -163,7 +165,7 @@ public class RoundController {
 			if(farkleController.getFarkle().getCurrentGame().getGameId() == 1 ||
 				farkleController.getFarkle().getCurrentGame().getGameId() == 3 )
 			{
-				return round.getRoundNum() > 10;
+				return round.getRoundNum() == 11;
 			}
 			else
 			{

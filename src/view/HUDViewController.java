@@ -17,17 +17,17 @@ import controller.GameController;
 import javafx.animation.ScaleTransition;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
@@ -36,9 +36,7 @@ import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -380,7 +378,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    		{
 	    			imageArea.get(i).setVisible(true);
 	    			imageArea.get(i).setDisable(false);
-	    			allDices.add(currentPlayer.getDice().get(i));
+	    			allDices.add( new Dice(currentPlayer.getDice().get(i).getValue()));
 	    		}
 	    	}
 
@@ -508,7 +506,6 @@ public class HUDViewController extends StackPane implements Refreshable {
 		button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #2c061f; -fx-font-size: 20px;"));
 
 		VBox vBox = new VBox(label, text, button);
-		vBox.setFillWidth(true);
 		vBox.setSpacing(50);
 		vBox.setAlignment(Pos.CENTER);
 

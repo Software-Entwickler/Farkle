@@ -201,6 +201,7 @@ public class AIController {
 				selectedDices.add(new Dice(i));
 			}
 
+
 			System.out.println("Confirm: " + Arrays.toString(selected));
 			upTo -= selectedDices.size();
 			farkleController.getActionController().confirmAI(selectedDices);
@@ -241,7 +242,7 @@ public class AIController {
 			int size = selectedCollections.length;
 
 
-			if (upTo <= 3 && player.getRoundScore()>=250) {
+			if (upTo < 3 && player.getRoundScore()>=250) {
 				System.out.println("Bank");
 				upTo = 6;
 				farkleController.getActionController().bank(player);
@@ -279,7 +280,6 @@ public class AIController {
 				farkleController.getFarkle().getCurrentGame().getCurrentRound())
 				|| player.isPlayed());
 
-
 		while (canPlayMore) {
 
 			ArrayList<Dice> dices = new ArrayList<>();
@@ -303,7 +303,7 @@ public class AIController {
 
 			int size = selectedCollections.length;
 
-			if ( player.getRoundScore() >= 1000 && upTo < 3 || upTo <= 3 && player.getRoundScore() >= 300 || upTo <= 2 && player.getRoundScore()>=250) {
+			if ( player.getRoundScore() >= 1000 && upTo <= 2 || upTo < 3 && player.getRoundScore() >= 300 || upTo < 1 && player.getRoundScore()>=250) {
 				System.out.println("Bank");
 				upTo = 6;
 				farkleController.getActionController().bank(player);
@@ -324,21 +324,24 @@ public class AIController {
 				selectedDices.add(new Dice(i));
 			}
 
-			if(selectedDices.stream().allMatch( dice -> dice.getValue()==1 || dice.getValue()==5 ) &&
-					selectedDices.size() != 6  && !selectedDices.stream().allMatch(dice -> dice.getValue()==1) &&
-					!selectedDices.stream().allMatch(dice -> dice.getValue()==5) &&
-					selectedDices.size() != upTo) {
+			if (player.getFarkle() < 2) {
 
-				if (selectedDices.stream().anyMatch(dice -> dice.getValue()==1)){
-					selectedDices.removeIf(dice -> dice.getValue()==5);
+				if(selectedDices.stream().allMatch( dice -> dice.getValue()==1 || dice.getValue()==5 ) &&
+						selectedDices.size() != 6  && !selectedDices.stream().allMatch(dice -> dice.getValue()==1) &&
+						!selectedDices.stream().allMatch(dice -> dice.getValue()==5) &&
+						selectedDices.size() != upTo) {
+
+					if (selectedDices.stream().anyMatch(dice -> dice.getValue()==1)){
+						selectedDices.removeIf(dice -> dice.getValue()==5);
+					}
+
+					if (selectedDices.size() > 0) {
+						Dice d = selectedDices.get(0);
+						selectedDices.clear();
+						selectedDices.add(d);
+					}
+
 				}
-
-				if (selectedDices.size() > 0) {
-					Dice d = selectedDices.get(0);
-					selectedDices.clear();
-					selectedDices.add(d);
-				}
-
 			}
 
 			int [] selectedModified = new int[selectedDices.size()];
