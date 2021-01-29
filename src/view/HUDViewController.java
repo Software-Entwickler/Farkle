@@ -109,7 +109,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    
 	    private ArrayList<ImageView> imageArea = new ArrayList<>();
 
-	private ArrayList<Dice> allDices = new ArrayList<>();
+		private ArrayList<Dice> allDices = new ArrayList<>();
 	    
 	    //private Media media ;
 	    
@@ -366,6 +366,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    	{
 	    		imageArea.get(i).setImage(new Image("file:src/view/dice"+ thrownDicesStrings.get(i) + ".png"));
 	    	}
+
+			allDices.clear();
 	    	
 	    	for(int i = 0; i < currentPlayer.getDice().size(); i++)
 	    	{
@@ -487,8 +489,6 @@ public class HUDViewController extends StackPane implements Refreshable {
 		MusicLoader.loadSound("button_click.wav");
 
 		String tip = farkleController.getAIController().takeDecision(allDices);
-
-		allDices.clear();
 
 		Text text = new Text(tip);
 		text.setFill(Color.DARKGOLDENROD);
