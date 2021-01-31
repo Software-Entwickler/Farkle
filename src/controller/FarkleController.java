@@ -2,6 +2,7 @@ package controller;
 
 import model.Farkle;
 import model.Timer;
+import view.HUDViewController;
 
 public class FarkleController {
 

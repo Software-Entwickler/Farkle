@@ -40,21 +40,10 @@ public class ActionController {
 			 Collections.shuffle(numberOfDice);
 			 fill.add("" + numberOfDice.get(0));
 			 dices.get(i).setValue(numberOfDice.get(0));
-			 //fill.add("file:src/view/dice"+numberOfDice.get(0)+".png");
 			 }
 			 
 		return fill;
 	}
-
-	/*
-	public void choose(ArrayList<Dice> dices) {
-		farkleController.getCalculationController().calculate(dices);
-	}
-
-	public void chooseAll(ArrayList<Dice> dices) {
-		farkleController.getCalculationController().calculate(dices);
-	}
-	*/
 
 	public void bank(Player player) {
 		if (player.getRoundScore() >= 250) {
@@ -90,19 +79,6 @@ public class ActionController {
 			else {
 					System.out.println("set the use to usebefore");
 				player.getDice().stream().filter(elem -> elem.isUsed()).forEach(c -> c.setUsedBefore(true));
-//				if (farkleController.getRoundController().isEndOfTurn(farkleController.getFarkle().getCurrentGame().getCurrentPlayer())) {
-//					System.out.println("set the next player");
-//					farkleController.getRoundController().setNextPlayer();
-//				}
-//
-//				if (farkleController.getRoundController().isEndOfGame(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
-//
-//					if (farkleController.getRoundController().isDraw(farkleController.getFarkle().getCurrentGame().getCurrentRound())) {
-//						farkleController.getRoundController().addExtraRound();
-//					} else {
-//						show();
-//					}
-//				}
 			}
 		}
 	}
@@ -132,12 +108,4 @@ public class ActionController {
 		}
 
 	}
-
-//	private void show (){
-//		ArrayList<Player> players = farkleController.getFarkle().getPlayer() ;
-//		players.sort(Comparator.comparing(Player::getScore));
-//		Collections.reverse(players);
-//		players.stream().map(player -> player.getUserName() + ": " + player.getScore()).forEach(System.out::println);
-//	}
-
 }
