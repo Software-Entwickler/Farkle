@@ -95,8 +95,7 @@ public class MainWindowViewController extends AnchorPane  {
 	    @FXML
 	    void exitmainPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("button_menue.wav");
-	    	 System.exit(0);
-
+	    	System.exit(0);
 	    }
 	    
 	    @FXML

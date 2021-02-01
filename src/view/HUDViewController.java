@@ -462,6 +462,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 	    @FXML
 	    void exitPressed(MouseEvent event) {
 	    	MusicLoader.loadSound("game_over.wav");
+			farkleController.getIoController().setPlayerScoreTableCells();
 	    	farkleController.getFarkle().setCurrentGame(null);
 	    	MainWindowViewController mainWindowViewController = new MainWindowViewController(this.primaryStage);
 			Scene scene = new Scene(mainWindowViewController , primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());

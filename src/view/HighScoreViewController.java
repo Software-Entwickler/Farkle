@@ -19,8 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HighScoreViewController extends AnchorPane implements Initializable {
@@ -37,31 +41,27 @@ public class HighScoreViewController extends AnchorPane implements Initializable
     @FXML
     private Button back;
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
-    private FarkleController farkleController;
+    private FarkleController farkleController = new FarkleController();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<PlayerScoreTableCell> playerScoreTableCells = FXCollections.observableArrayList(
-                new PlayerScoreTableCell("Khaled", 1050),
-                new PlayerScoreTableCell("Abdulrazzak", 1000),
-                new PlayerScoreTableCell("Ahmed", 1000),
-                new PlayerScoreTableCell("Yousef", 1000),
-                new PlayerScoreTableCell("Nour", 0)
-        );
+        ObservableList<HighScoreViewController.PlayerScoreTableCell> playerScoreTableCells =
+                FXCollections.observableArrayList(farkleController.getIoController().getPlayerScoreTableCells());
 
         playerName.setCellValueFactory(new PropertyValueFactory<>("name"));
         playerScore.setCellValueFactory(new PropertyValueFactory<>("score"));
+
         highScoreTable.setItems(playerScoreTableCells);
 
     }
 
     public static class PlayerScoreTableCell {
 
-        private SimpleIntegerProperty score;
-        private SimpleStringProperty name;
+        private final SimpleIntegerProperty score;
+        private final SimpleStringProperty name;
 
         public PlayerScoreTableCell (String name, Integer score) {
             this.score = new SimpleIntegerProperty(score);

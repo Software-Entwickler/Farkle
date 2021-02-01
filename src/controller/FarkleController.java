@@ -7,6 +7,8 @@ public class FarkleController {
 
 	private Farkle farkle =  new Farkle();
 
+	private IOController ioController = new IOController(this);
+
 	private CalculationController calculationController = new CalculationController(this);
 
 	private GameController gameController = new GameController(this);
@@ -94,5 +96,13 @@ public class FarkleController {
 
 	public void setGameController(GameController gameController) {
 		this.gameController = gameController;
+	}
+
+	public IOController getIoController() {
+		return ioController;
+	}
+
+	public void setIoController(IOController ioController) {
+		this.ioController = ioController;
 	}
 }
