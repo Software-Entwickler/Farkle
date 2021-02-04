@@ -203,7 +203,7 @@ public class AddPlayersViewController extends StackPane implements Initializable
 			 		System.out.println(player.getUserName());
 			 	}
 			 	
-			 	HUDViewController hudViewController = new HUDViewController(this.primaryStage, this.farkleController); 
+			 	HUDViewController hudViewController = new HUDViewController(this.primaryStage, this.farkleController);
 			 	Scene scene = new Scene(hudViewController, primaryStage.getScene().getWidth() , primaryStage.getScene().getHeight());
 			    primaryStage.setScene(scene);
 			    primaryStage.show();
