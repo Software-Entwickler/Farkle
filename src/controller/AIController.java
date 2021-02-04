@@ -2,6 +2,7 @@ package controller;
 
 import model.Dice;
 import model.Player;
+import view.HUDViewController;
 
 import java.util.*;
 
@@ -147,9 +148,7 @@ public class AIController {
 
 		Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 
-		canPlayMore = ! (farkleController.getRoundController().isEndOfGame(
-				farkleController.getFarkle().getCurrentGame().getCurrentRound())
-				|| player.isPlayed());
+		canPlayMore = !player.isPlayed();
 
 
 		while (canPlayMore) {
@@ -213,9 +212,7 @@ public class AIController {
 
 		Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 
-		canPlayMore = ! (farkleController.getRoundController().isEndOfGame(
-				farkleController.getFarkle().getCurrentGame().getCurrentRound())
-					|| player.isPlayed());
+		canPlayMore = !player.isPlayed();
 
 		while (canPlayMore) {
 
@@ -276,26 +273,37 @@ public class AIController {
 
 		Player player = farkleController.getFarkle().getCurrentGame().getCurrentPlayer();
 
-		canPlayMore = ! (farkleController.getRoundController().isEndOfGame(
-				farkleController.getFarkle().getCurrentGame().getCurrentRound())
-				|| player.isPlayed());
+//		canPlayMore = ! (farkleController.getRoundController().isEndOfGame(
+//				farkleController.getFarkle().getCurrentGame().getCurrentRound())
+//				|| player.isPlayed());
 
-		while (canPlayMore) {
+		while (!player.isPlayed()) {
 
 			ArrayList<Dice> dices = new ArrayList<>();
 			Random random = new Random();
 
 			if(upTo==0) upTo = 6;
-
-			for( int i=0;i<upTo;i++) {
-				dices.add(new Dice(random.nextInt(6) + 1));
+//
+//			for( int i=0;i<upTo;i++) {
+//				dices.add(new Dice(random.nextInt(6) + 1));
+//			}
+			
+			farkleController.getActionController().throwDice(player);
+			for(Dice dice : player.getDice())
+			{
+				if(!dice.isUsed())
+				{
+					dices.add(new Dice(dice.getValue()));
+				}
 			}
 
 			takeDecision(dices);
+			int abdul = dices.size();
 
 			System.out.println();
 			System.out.println("My name is: " + player.getUserName());
 			System.out.println("I have yet " + upTo + " dices!");
+			System.out.println("I have yet " + abdul + " dices!");
 			System.out.println("My current round score is: " + player.getRoundScore());
 			System.out.println("My score is: " + player.getScore());
 			System.out.println("That is the round number: "

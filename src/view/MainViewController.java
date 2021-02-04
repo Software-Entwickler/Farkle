@@ -16,7 +16,7 @@ public class MainViewController{
 		
 		
 		this.setFarkle(new Farkle());
-		this.setFarkleController(new FarkleController());
+		//this.setFarkleController(new FarkleController());
 		this.setAddPlayersViewController(addPlayersViewController);
 	}
 

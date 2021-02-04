@@ -296,6 +296,17 @@ public class HUDViewController extends StackPane implements Refreshable {
 		    	bankB.setDisable(false);
 	    	}
 	    	
+
+			if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().getPlayerType() > 0)
+	    	{
+	    		confirmB.setOpacity(0.25);
+		    	confirmB.setDisable(true);
+		    	throwB.setOpacity(0.25);
+		    	throwB.setDisable(true);
+		    	bankB.setOpacity(0.25);
+		    	bankB.setDisable(true);
+	    	}
+	    	
 	    	if(farkleController.getFarkle().getCurrentGame().isEndGame())
 	    	{
 	    		confirmB.setOpacity(0.25);
@@ -304,6 +315,7 @@ public class HUDViewController extends StackPane implements Refreshable {
 		    	throwB.setDisable(true);
 		    	bankB.setOpacity(0.25);
 		    	bankB.setDisable(true);
+		    	resetField();
 		    	//TODO score zeigen.
 	    	}
 	    	
@@ -338,7 +350,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 				labelsUsername.get(i).setText(allPlayers.get(i).getUserName());
 				labelspoints.get(i).setText("" + allPlayers.get(i).getScore());
 				playerProfil.get(i).setBlendMode(null);
-				if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().equals(allPlayers.get(i)))
+				if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().equals(allPlayers.get(i)) &&
+						!farkleController.getFarkle().getCurrentGame().isEndGame())
 				{
 					playerProfil.get(i).setBlendMode(BlendMode.RED);
 				}
