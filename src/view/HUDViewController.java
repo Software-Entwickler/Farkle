@@ -306,6 +306,16 @@ public class HUDViewController extends StackPane implements Refreshable {
 		    	bankB.setOpacity(0.25);
 		    	bankB.setDisable(true);
 	    	}
+
+			if(farkleController.getFarkle().getCurrentGame().getCurrentPlayer().getPlayerType() > 0)
+			{
+				confirmB.setOpacity(0.25);
+				confirmB.setDisable(true);
+				throwB.setOpacity(0.25);
+				throwB.setDisable(true);
+				bankB.setOpacity(0.25);
+				bankB.setDisable(true);
+			}
 	    	
 	    	if(farkleController.getFarkle().getCurrentGame().isEndGame())
 	    	{
@@ -318,8 +328,8 @@ public class HUDViewController extends StackPane implements Refreshable {
 		    	resetField();
 		    	//TODO score zeigen.
 	    	}
-	    	
-	    	ArrayList<ImageView> playerProfil =new ArrayList<>();
+
+			ArrayList<ImageView> playerProfil =new ArrayList<>();
 	    	playerProfil.add(ply1);
 	    	playerProfil.add(ply2);
 	    	playerProfil.add(ply3);
